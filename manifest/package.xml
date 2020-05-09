@@ -37,8 +37,11 @@
 		<name>CustomApplicationComponent</name>
 	</types>
 	<types>
+		<members>Contact.First_Purchase__c</members>
+		<members>Contact.Last_Purchase__c</members>
 		<members>Contact.Personal_Discount__c</members>
 		<members>Contact.Total_Amount__c</members>
+		<members>Discount__c.Max_Discount__c</members>
 		<members>Item__c.Price__c</members>
 		<members>Item__c.Type__c</members>
 		<members>Purchase_Item__c.Discount__c</members>
@@ -55,6 +58,7 @@
 	</types>
 	<types>
 		<members>Contact</members>
+		<members>Discount__c</members>
 		<members>Item__c</members>
 		<members>Purchase_Item__c</members>
 		<members>Purchase__c</members>
