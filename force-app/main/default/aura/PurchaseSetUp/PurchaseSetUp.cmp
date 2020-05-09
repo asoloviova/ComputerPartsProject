@@ -1,13 +1,18 @@
-<aura:component>
+<aura:component controller="ContactPicklistApexController">
+    <aura:attribute name="Contact" type="Contact" />
+    <aura:attribute name="ContactPick" type="Contact[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">Main setup</div>
     <div class="slds-grid">
         <lightning:layout>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
-                <lightning:select name="contactPicklist" label="Contact" required="true">
-                    <option value="">choose one...</option>
-                    <option value="1">one</option>
-                    <option value="2">two</option>
-                    <option value="3">three</option>
+                <lightning:select aura:id="contactPicklistId" name="contactPicklist" label="Contact" required="true">
+
+                    <aura:iteration items="{!v.ContactPick}" var="con">
+                        <option value="{!con}" text="{!con}" />
+                    </aura:iteration>
+
                 </lightning:select>
             </lightning:layoutItem>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
