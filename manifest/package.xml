@@ -37,42 +37,16 @@
 		<name>CustomApplicationComponent</name>
 	</types>
 	<types>
-		<members>Account.Active__c</members>
-		<members>Account.CustomerPriority__c</members>
-		<members>Account.NumberofLocations__c</members>
-		<members>Account.SLAExpirationDate__c</members>
-		<members>Account.SLASerialNumber__c</members>
-		<members>Account.SLA__c</members>
-		<members>Account.UpsellOpportunity__c</members>
-		<members>Case.EngineeringReqNumber__c</members>
-		<members>Case.PotentialLiability__c</members>
-		<members>Case.Product__c</members>
-		<members>Case.SLAViolation__c</members>
-		<members>Contact.First_Purchase__c</members>
-		<members>Contact.Languages__c</members>
-		<members>Contact.Last_Purchase__c</members>
-		<members>Contact.Level__c</members>
 		<members>Contact.Personal_Discount__c</members>
 		<members>Contact.Total_Amount__c</members>
-		<members>Goal.OrigGoalId__c</members>
 		<members>Item__c.Price__c</members>
 		<members>Item__c.Type__c</members>
-		<members>Lead.CurrentGenerators__c</members>
-		<members>Lead.NumberofLocations__c</members>
-		<members>Lead.Primary__c</members>
-		<members>Lead.ProductInterest__c</members>
-		<members>Lead.SICCode__c</members>
-		<members>Metric.OrigMetricId__c</members>
-		<members>Opportunity.CurrentGenerators__c</members>
-		<members>Opportunity.DeliveryInstallationStatus__c</members>
-		<members>Opportunity.MainCompetitors__c</members>
-		<members>Opportunity.OrderNumber__c</members>
-		<members>Opportunity.TrackingNumber__c</members>
-		<members>Purchase_Item__c.DIscount__c</members>
+		<members>Purchase_Item__c.Discount__c</members>
 		<members>Purchase_Item__c.Item__c</members>
 		<members>Purchase_Item__c.Purchase__c</members>
 		<members>Purchase__c.Amount__c</members>
 		<members>Purchase__c.Contact__c</members>
+		<members>Purchase__c.Discout_Type__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
@@ -80,131 +54,10 @@
 		<name>CustomMetadata</name>
 	</types>
 	<types>
-		<members>Account</members>
-		<members>AccountCleanInfo</members>
-		<members>AccountContactRole</members>
-		<members>Activity</members>
-		<members>Asset</members>
-		<members>AssetRelationship</members>
-		<members>AssignedResource</members>
-		<members>AssistantProgress</members>
-		<members>AuthorizationForm</members>
-		<members>AuthorizationFormConsent</members>
-		<members>AuthorizationFormDataUse</members>
-		<members>AuthorizationFormText</members>
-		<members>Campaign</members>
-		<members>CampaignMember</members>
-		<members>CardPaymentMethod</members>
-		<members>Case</members>
-		<members>CaseContactRole</members>
-		<members>ChatterActivity</members>
-		<members>CollaborationGroup</members>
-		<members>CollaborationGroupMember</members>
-		<members>CommSubscription</members>
-		<members>CommSubscriptionChannelType</members>
-		<members>CommSubscriptionConsent</members>
-		<members>CommSubscriptionTiming</members>
-		<members>ConsumptionRate</members>
-		<members>ConsumptionSchedule</members>
 		<members>Contact</members>
-		<members>ContactCleanInfo</members>
-		<members>ContactPointConsent</members>
-		<members>ContactPointEmail</members>
-		<members>ContactPointPhone</members>
-		<members>ContactPointTypeConsent</members>
-		<members>ContactRequest</members>
-		<members>ContentVersion</members>
-		<members>Contract</members>
-		<members>ContractContactRole</members>
-		<members>CreditMemo</members>
-		<members>CreditMemoLine</members>
-		<members>DandBCompany</members>
-		<members>DataUseLegalBasis</members>
-		<members>DataUsePurpose</members>
-		<members>DigitalWallet</members>
-		<members>DuplicateRecordItem</members>
-		<members>DuplicateRecordSet</members>
-		<members>EmailMessage</members>
-		<members>EngagementChannelType</members>
-		<members>Event</members>
-		<members>ExchangeUserMapping</members>
-		<members>ExpressionFilter</members>
-		<members>ExpressionFilterCriteria</members>
-		<members>ExternalEventMapping</members>
-		<members>FeedItem</members>
-		<members>Idea</members>
-		<members>Image</members>
-		<members>Individual</members>
-		<members>Invoice</members>
-		<members>InvoiceLine</members>
 		<members>Item__c</members>
-		<members>Lead</members>
-		<members>LeadCleanInfo</members>
-		<members>Macro</members>
-		<members>MacroAction</members>
-		<members>MacroInstruction</members>
-		<members>MacroUsage</members>
-		<members>MessagingEndUser</members>
-		<members>MessagingSession</members>
-		<members>OperatingHours</members>
-		<members>Opportunity</members>
-		<members>OpportunityCompetitor</members>
-		<members>OpportunityContactRole</members>
-		<members>OpportunityLineItem</members>
-		<members>Order</members>
-		<members>OrderItem</members>
-		<members>OrgDeleteRequest</members>
-		<members>OrgMetricScanResult</members>
-		<members>OrgMetricScanSummary</members>
-		<members>PartnerRole</members>
-		<members>PartyConsent</members>
-		<members>Payment</members>
-		<members>PaymentAuthorization</members>
-		<members>PaymentGateway</members>
-		<members>PaymentGroup</members>
-		<members>PaymentLineInvoice</members>
-		<members>PaymentMethod</members>
-		<members>Pricebook2</members>
-		<members>PricebookEntry</members>
-		<members>Product2</members>
-		<members>ProductConsumptionSchedule</members>
-		<members>PromptAction</members>
 		<members>Purchase_Item__c</members>
 		<members>Purchase__c</members>
-		<members>QuickText</members>
-		<members>QuickTextUsage</members>
-		<members>Recommendation</members>
-		<members>RecordAction</members>
-		<members>RecordMergeHistory</members>
-		<members>Refund</members>
-		<members>RefundLinePayment</members>
-		<members>ResourceAbsence</members>
-		<members>ResourcePreference</members>
-		<members>RevenueElement</members>
-		<members>Scorecard</members>
-		<members>ScorecardAssociation</members>
-		<members>ScorecardMetric</members>
-		<members>ServiceAppointment</members>
-		<members>ServiceResource</members>
-		<members>ServiceResourceSkill</members>
-		<members>ServiceTerritory</members>
-		<members>ServiceTerritoryMember</members>
-		<members>ServiceTerritoryWorkType</members>
-		<members>Site</members>
-		<members>SkillRequirement</members>
-		<members>SocialPersona</members>
-		<members>Solution</members>
-		<members>StreamActivityAccess</members>
-		<members>StreamingChannel</members>
-		<members>Task</members>
-		<members>TimeSlot</members>
-		<members>Topic</members>
-		<members>TopicAssignment</members>
-		<members>User</members>
-		<members>UserProvisioningRequest</members>
-		<members>WorkType</members>
-		<members>WorkTypeGroup</members>
-		<members>WorkTypeGroupMember</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -218,10 +71,6 @@
 	<types>
 		<members>*</members>
 		<name>LightningComponentBundle</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>Profile</name>
 	</types>
 	<types>
 		<members>*</members>

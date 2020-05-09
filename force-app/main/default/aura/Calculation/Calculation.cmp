@@ -1,0 +1,36 @@
+<aura:component>
+    <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">Calculation</div>
+
+    <div class="slds-text-heading_small slds-p-around_medium">
+        Customer:
+        <div class="slds-text-body_small">
+            Mike Black
+        </div>
+    </div>
+
+    <div class="slds-text-heading_small slds-p-around_medium">
+        List of chosen items
+    </div>
+    <div>
+        <lightning:datatable keyField="id" />
+    </div>
+
+    <div class="slds-text-heading_small slds-p-around_medium">
+        Total sum:
+        <div class="slds-text-body_small">
+            $1234
+        </div>
+    </div>
+
+
+    <div class="slds-text-heading_small slds-p-around_medium">
+        Total sum with discount:
+        <div class="slds-text-body_small">
+            $1000
+        </div>
+    </div>
+
+    <div class="slds-var-p-around_medium">
+        <button class="slds-button slds-button_brand">Save Order</button>
+    </div>
+</aura:component>

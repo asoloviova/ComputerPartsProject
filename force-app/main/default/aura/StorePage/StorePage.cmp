@@ -1,3 +1,45 @@
 <aura:component implements="force:appHostable">
+    <div class="slds-m-vertical_small">
+        <c:StoreHeader />
+    </div>
 
+    <div class="slds-card slds-m-vertical_small">
+        <c:PurchaseSetUp />
+    </div>
+
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_2-of-3">
+
+            <div class="slds-card ">
+                <c:addItems />
+            </div>
+
+            <div class="slds-card ">
+                <c:addItems />
+            </div>
+            <div class="slds-card ">
+                <c:addItems />
+            </div>
+            <div class="slds-card ">
+                <c:addItems />
+            </div>
+
+            <div class="slds-p-around_medium">
+                <button class="slds-button slds-button_brand">Calculate</button>
+            </div>
+
+            <!-- <div class="slds-card">
+                <c:addItems />
+            </div> -->
+
+
+        </div>
+
+        <div class="slds-col slds-size_1-of-3 ">
+            <div class="slds-card">
+                <c:Calculation />
+            </div>
+
+        </div>
+    </div>
 </aura:component>

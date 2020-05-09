@@ -155,8 +155,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Purchase Item</label>
     <nameField>
+        <displayFormat>I-{0000}</displayFormat>
         <label>Purchase Item Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Purchase Items</pluralLabel>
     <searchLayouts/>
