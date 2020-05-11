@@ -1,25 +1,24 @@
 <aura:component controller="ContactPicklistApexController">
     <aura:attribute name="Contact" type="Contact" />
     <aura:attribute name="ContactPick" type="Contact[]" />
-
+    <aura:registerEvent name="DisplayFieldEvent" type="c:DisplayManualDiscountField" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">Main setup</div>
     <div class="slds-grid">
         <lightning:layout>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                 <lightning:select aura:id="contactPicklistId" name="contactPicklist" label="Contact" required="true">
-
                     <aura:iteration items="{!v.ContactPick}" var="con">
                         <option value="{!con}" text="{!con}" />
                     </aura:iteration>
-
                 </lightning:select>
             </lightning:layoutItem>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                 <lightning:input name="datePicklist" type="date" label="Date of Purchase" required="true" />
             </lightning:layoutItem>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
-                <lightning:select name="discountTypePicklist" label="Type of Discount" required="true">
+                <lightning:select aura:id="discountTypePicklist" name="discountTypePicklist" label="Type of Discount"
+                    required="true" onchange="{!c.displayManualDiscountField}">
                     <option value="manual">Manual</option>
                     <option value="automatic">Automatic</option>
                 </lightning:select>

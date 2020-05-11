@@ -1,8 +1,10 @@
-<aura:component controller="ItemPicklistApexController">
+<aura:component controller="ItemPicklistApexController" access="global">
     <aura:attribute name="ItemType" type="String" />
     <aura:attribute name="Item" type="Item__c" />
     <aura:attribute name="ItemList" type="Item__c[]" />
+    <aura:attribute name="HasManualDiscountField" type="Boolean" default="false" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getValueFromEvent}" />
     <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">{!v.ItemType}s</div>
 
     <lightning:layout class="slds-grid">
@@ -26,9 +28,11 @@
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
             <lightning:input name="defaultPrice" label="Default Price" readonly="true" />
         </lightning:layoutItem>
-        <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:input name="manualDiscount" label="Manual discount" />
-        </lightning:layoutItem>
+        <aura:if isTrue="{!v.HasManualDiscountField}">
+            <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
+                <lightning:input name="manualDiscount" label="Manual discount" />
+            </lightning:layoutItem>
+        </aura:if>
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5 ">
             <lightning:buttonIcon iconName="utility:close" variant="container" alternativeText="Close" title="Close"
                 class="slds-m-top_large" />
