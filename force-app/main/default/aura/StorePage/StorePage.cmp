@@ -11,17 +11,17 @@
         <div class="slds-col slds-size_2-of-3">
 
             <div class="slds-card ">
-                <c:addItems />
+                <c:addItems ItemType="Processor" />
             </div>
 
             <div class="slds-card ">
-                <c:addItems />
+                <c:addItems ItemType="RAM" />
             </div>
             <div class="slds-card ">
-                <c:addItems />
+                <c:addItems ItemType="Motherboard" />
             </div>
             <div class="slds-card ">
-                <c:addItems />
+                <c:addItems ItemType="Video Card" />
             </div>
 
             <div class="slds-p-around_medium">
