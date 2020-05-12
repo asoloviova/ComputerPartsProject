@@ -9,4 +9,11 @@ public with sharing class ItemPicklistApexController {
         }
         return itemNames;
     }
+
+    @AuraEnabled
+    public static Decimal getItemsPrice(String name){
+        List<Item__c> itm = [SELECT Name, Price__c FROM Item__c WHERE Name=:name];
+        Decimal price = itm[0].Price__c;
+        return price;
+    }
 }

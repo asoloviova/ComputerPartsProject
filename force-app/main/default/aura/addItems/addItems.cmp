@@ -2,14 +2,17 @@
     <aura:attribute name="ItemType" type="String" />
     <aura:attribute name="Item" type="Item__c" />
     <aura:attribute name="ItemList" type="Item__c[]" />
-    <aura:attribute name="HasManualDiscountField" type="Boolean" default="false" />
+    <aura:attribute name="HasManualDiscountField" type="Boolean" default="true" />
+    <aura:attribute name="DefaultPrice" type="Decimal" default="143" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:DisplayManualDiscountField" action="{!c.getValueFromEvent}" />
     <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">{!v.ItemType}s</div>
 
     <lightning:layout class="slds-grid">
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:select name="itemPicklist" label="{!v.ItemType}" required="true">
+            <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.ItemType}" required="true"
+                onchange="{!c.uploadDefaultPrice}">
+                <option value="">Choose {!v.ItemType}</option>
                 <aura:iteration items="{!v.ItemList}" var="itm">
                     <option value="{!itm}" text="{!itm}" />
                 </aura:iteration>
@@ -26,7 +29,7 @@
         </lightning:layoutItem>
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:input name="defaultPrice" label="Default Price" readonly="true" />
+            <lightning:input name="defaultPriceField" value="{!v.DefaultPrice}" label="Default Price" readonly="true" />
         </lightning:layoutItem>
         <aura:if isTrue="{!v.HasManualDiscountField}">
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">

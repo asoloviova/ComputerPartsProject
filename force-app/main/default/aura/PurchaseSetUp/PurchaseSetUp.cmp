@@ -8,8 +8,9 @@
         <lightning:layout>
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                 <lightning:select aura:id="contactPicklistId" name="contactPicklist" label="Contact" required="true">
+                    <option value="">Choose Contact</option>
                     <aura:iteration items="{!v.ContactPick}" var="con">
-                        <option value="{!con}" text="{!con}" />
+                        <option value="{!con}">{!con}</option>
                     </aura:iteration>
                 </lightning:select>
             </lightning:layoutItem>
