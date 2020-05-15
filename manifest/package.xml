@@ -47,6 +47,7 @@
 		<members>Purchase_Item__c.Discount__c</members>
 		<members>Purchase_Item__c.Item__c</members>
 		<members>Purchase_Item__c.Purchase__c</members>
+		<members>Purchase_Item__c.Quantity__c</members>
 		<members>Purchase__c.Amount__c</members>
 		<members>Purchase__c.Contact__c</members>
 		<members>Purchase__c.Discout_Type__c</members>
