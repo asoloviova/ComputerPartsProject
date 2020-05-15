@@ -5,6 +5,7 @@
     <aura:attribute name="HasManualDiscountField" type="Boolean" default="true" />
     <aura:attribute name="DefaultPrice" type="Decimal" />
     <aura:attribute name="RowIndex" type="String" />
+    <aura:attribute name="manDiscount" type="Decimal" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:DisplayManualDiscountField" action="{!c.getValueFromEvent}" />
@@ -33,12 +34,15 @@
         </lightning:layoutItem>
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:input name="defaultPriceField" value="{!v.DefaultPrice}" label="Default Price" readonly="true" />
+            <lightning:input name="defaultPriceField" value="{!v.DefaultPrice}" label="Default Price" readonly="true"
+                formatter="currency" />
         </lightning:layoutItem>
 
         <aura:if isTrue="{!v.HasManualDiscountField}">
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-                <lightning:input name="manualDiscount" label="Manual discount" />
+                <lightning:input aura:id="manualDiscount" name="manualDiscount" label="Manual discount"
+                    value="{!v.manDiscount}" oncommit="{!c.manDiscountCheck}" formatter="percent-fixed" type="Number"
+                    messageWhenPatternMismatch="Please input only digits" />
             </lightning:layoutItem>
         </aura:if>
 

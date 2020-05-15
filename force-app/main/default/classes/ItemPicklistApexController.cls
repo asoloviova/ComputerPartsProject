@@ -17,4 +17,13 @@ public with sharing class ItemPicklistApexController {
         Decimal price = itm[0].Price__c;
         return price;
     }
+
+    @AuraEnabled
+    public static Decimal getMaxCustomDiscount(){
+        Id profileId=userinfo.getProfileId();
+        Discount__c disc = Discount__c.getInstance(profileId);
+        Decimal maxDisc = disc.Max_Discount__c;
+        return maxDisc;
+
+    }
 }
