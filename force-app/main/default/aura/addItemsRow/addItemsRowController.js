@@ -1,28 +1,22 @@
 ({
-    doInit: function (component) {
+    doInit: function (component, event, helper) {
         var action = component.get("c.getItemsPicklist");
         action.setParams({ type: component.get("v.ItemType") });
         action.setCallback(this, function (response) {
             var allValues = response.getReturnValue();
             component.set("v.ItemList", allValues);
+            helper.getMaxDisc(component, event, helper);
         });
-        $A.enqueueAction(action);
 
+        $A.enqueueAction(action);
     },
     getValueFromEvent: function (component, event) {
         var displayField = event.getParam("itemTypeEvt");
         component.set("v.HasManualDiscountField", displayField);
     },
     uploadDefaultPrice: function (component, event, helper) {
-
-        var itmName = component.find("itemPicklist").get("v.value");
-        var action = component.get("c.getItemsPrice");
-        action.setParams({ name: itmName });
-        action.setCallback(this, function (response) {
-            var priceResult = response.getReturnValue();
-            component.set("v.DefaultPrice", priceResult);
-        });
-        $A.enqueueAction(action);
+        var item = JSON.parse(component.get("v.ItemListValue"));
+        component.set("v.DefaultPrice", item.Price__c);
     },
     deleteRow: function (component, event, helper) {
 
@@ -30,18 +24,16 @@
         evt.setParams({ "indexVar": component.get("v.RowIndex") }).fire();
     },
     manDiscountCheck: function (component, event, helper) {
-        var getMaxDisc = component.get("c.getMaxCustomDiscount");
-        var discInput = component.find("manualDiscount").get("v.value");
-        getMaxDisc.setCallback(this, function (response) {
-            var maxDisc = response.getReturnValue();
-            if (discInput > maxDisc) {
-                component.set("v.manDiscount", maxDisc);
-                alert("input manual discount that's less than " + maxDisc + "%");
-            } else {
-                alert("max disc: " + maxDisc + "%");
-            }
-        });
-        $A.enqueueAction(getMaxDisc);
 
+        var discInput = component.find("manualDiscount").get("v.value");
+        var maxDisc = component.get("v.maxDiscount");
+        if (discInput > maxDisc) {
+            component.set("v.manDiscount", maxDisc);
+            var toastEvent = $A.get("e.force:showToast");
+            toastEvent.setParams({
+                message: 'Input manual discount less than ' + maxDisc + '%',
+            });
+            toastEvent.fire();
+        }
     }
 })

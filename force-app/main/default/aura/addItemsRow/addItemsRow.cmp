@@ -1,11 +1,13 @@
 <aura:component controller="ItemPicklistApexController" access="global">
     <aura:attribute name="ItemType" type="String" />
     <aura:attribute name="Item" type="Item__c" />
-    <aura:attribute name="ItemList" type="Item__c[]" />
+    <aura:attribute name="ItemList" type="List" />
     <aura:attribute name="HasManualDiscountField" type="Boolean" default="true" />
     <aura:attribute name="DefaultPrice" type="Decimal" />
     <aura:attribute name="RowIndex" type="String" />
     <aura:attribute name="manDiscount" type="Decimal" />
+    <aura:attribute name="ItemListValue" type="String" />
+    <aura:attribute name="maxDiscount" type="Decimal" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:DisplayManualDiscountField" action="{!c.getValueFromEvent}" />
@@ -15,10 +17,10 @@
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
             <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.ItemType}" required="true"
-                onchange="{!c.uploadDefaultPrice}">
+                onchange="{!c.uploadDefaultPrice}" value="{!v.ItemListValue}">
                 <option value="">Choose {!v.ItemType}</option>
                 <aura:iteration items="{!v.ItemList}" var="itm">
-                    <option value="{!itm}" text="{!itm}" />
+                    <option value="{!itm.value}" text="{!itm.label}" selected="{!v.ItemListValue==itm.value}" />
                 </aura:iteration>
             </lightning:select>
         </lightning:layoutItem>
