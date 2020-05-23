@@ -1,3 +1,4 @@
 <aura:event type="APPLICATION">
-    <aura:attribute name="itemTypeEvt" type="Boolean" />
+    <aura:attribute name="discTypeEvt" type="Boolean" />
+    <!-- <aura:attribute name="contactDiscount" type="Decimal" /> -->
 </aura:event>

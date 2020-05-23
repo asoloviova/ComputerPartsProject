@@ -1,15 +1,19 @@
-<aura:component>
+<aura:component controller="CalculationApexController">
     <aura:attribute name="ItemType" type="String" />
-    <aura:attribute name="ItemRows" type="Purchase_Item__c[]" />
-
+    <aura:attribute name="ItemRows" type="List" />
+    <aura:attribute name="HasManualDiscountField" type="Boolean" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:DeleteRowEvent" action="{!c.removeDeletedRow}" />
+    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
+
 
     <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">{!v.ItemType}s</div>
 
     <aura:iteration items="{!v.ItemRows}" var="row" indexVar="index">
-        <c:addItemsRow ItemType="{!v.ItemType}" RowIndex="{!index}" />
+        <c:addItemsRow aura:id="itemRow" ItemType="{!v.ItemType}" RowIndex="{!index}" ChosenItem="{!row}"
+            HasManualDiscountField="{!v.HasManualDiscountField}" />
     </aura:iteration>
 
-    <lightning:button class="slds-p-around_medium slds-m-bottom_small" variant="base" label="Add Row"
+    <lightning:button class="slds-m-bottom_small slds-m-left_small" variant="base" label="Add Row"
         onclick="{!c.addRow}" />
 </aura:component>

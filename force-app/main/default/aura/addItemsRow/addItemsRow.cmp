@@ -2,22 +2,26 @@
     <aura:attribute name="ItemType" type="String" />
     <aura:attribute name="Item" type="Item__c" />
     <aura:attribute name="ItemList" type="List" />
-    <aura:attribute name="HasManualDiscountField" type="Boolean" default="true" />
+    <aura:attribute name="HasManualDiscountField" type="Boolean" default="false" />
     <aura:attribute name="DefaultPrice" type="Decimal" />
     <aura:attribute name="RowIndex" type="String" />
     <aura:attribute name="manDiscount" type="Decimal" />
     <aura:attribute name="ItemListValue" type="String" />
     <aura:attribute name="maxDiscount" type="Decimal" />
+    <aura:attribute name="ChosenItem" type="Object" />
+    <aura:attribute name="contactDiscount" type="Decimal" />
+    <aura:attribute name="chosenQuantity" type="Integer" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getValueFromEvent}" />
+    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
+    <aura:handler event="c:SetDiscountEvent" action="{!c.setContactDiscount}" />
     <aura:registerEvent name="DeleteRowEvent" type="c:DeleteRowEvent" />
 
     <lightning:layout class="slds-grid">
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
             <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.ItemType}" required="true"
-                onchange="{!c.uploadDefaultPrice}" value="{!v.ItemListValue}">
+                onchange="{!c.itemPicklistChange}" value="{!v.ItemListValue}">
                 <option value="">Choose {!v.ItemType}</option>
                 <aura:iteration items="{!v.ItemList}" var="itm">
                     <option value="{!itm.value}" text="{!itm.label}" selected="{!v.ItemListValue==itm.value}" />
@@ -26,7 +30,8 @@
         </lightning:layoutItem>
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:select name="quantityPicklist" label="Quantity" required="true">
+            <lightning:select aura:id="quantityPicklist" name="quantityPicklist" label="Quantity" required="true"
+                onchange="{!c.quantityChange}" value="{!v.chosenQuantity}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -36,8 +41,8 @@
         </lightning:layoutItem>
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:input name="defaultPriceField" value="{!v.DefaultPrice}" label="Default Price" readonly="true"
-                formatter="currency" />
+            <lightning:input name="defaultPriceField" value="{!v.ChosenItem.itemPrice}" label="Default Price, USD"
+                readonly="true" formatter="currency" />
         </lightning:layoutItem>
 
         <aura:if isTrue="{!v.HasManualDiscountField}">

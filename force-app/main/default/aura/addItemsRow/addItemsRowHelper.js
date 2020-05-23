@@ -6,5 +6,9 @@
             component.set("v.maxDiscount", maxDisc);
         });
         $A.enqueueAction(getMaxDisc);
-    }
+    },
+    uploadDefaultPrice: function (component, event, helper) {
+        var item = JSON.parse(component.get("v.ItemListValue"));
+        component.set("v.ChosenItem.itemPrice", item.Price__c);
+    },
 })

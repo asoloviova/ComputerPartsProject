@@ -1,43 +1,39 @@
-<aura:component implements="force:appHostable">
+<aura:component implements="force:appHostable" controller="CalculationApexController">
+    <aura:attribute name="chosenItemsList" type="List" />
+
     <div class="slds-m-vertical_small">
         <c:StoreHeader />
     </div>
 
     <div class="slds-card slds-m-vertical_small">
-        <c:PurchaseSetUp />
+        <c:PurchaseSetUp aura:id="purchaseSetUp" />
     </div>
 
     <div class="slds-grid slds-gutters">
-        <div class="slds-col slds-size_2-of-3">
+        <div class="slds-col slds-size_1-of-2">
 
             <div class="slds-card ">
-                <c:addItems ItemType="Processor" />
+                <c:addItems ItemType="Processor" aura:id="processors" />
             </div>
 
             <div class="slds-card ">
-                <c:addItems ItemType="RAM" />
+                <c:addItems ItemType="RAM" aura:id="rams" />
             </div>
             <div class="slds-card ">
-                <c:addItems ItemType="Motherboard" />
+                <c:addItems ItemType="Motherboard" aura:id="motherboards" />
             </div>
             <div class="slds-card ">
-                <c:addItems ItemType="Video Card" />
+                <c:addItems ItemType="Video Card" aura:id="videocards" />
             </div>
 
-            <div class="slds-p-around_medium">
-                <button class="slds-button slds-button_brand">Calculate</button>
+            <div class="slds-p-around_small">
+                <button class="slds-button slds-button_brand" onclick="{!c.handleCalculation}">Calculate</button>
             </div>
-
-            <!-- <div class="slds-card">
-                <c:addItems />
-            </div> -->
-
-
         </div>
 
-        <div class="slds-col slds-size_1-of-3 ">
+        <div class="slds-col slds-size_1-of-2 ">
             <div class="slds-card">
-                <c:Calculation />
+                <c:Calculation aura:id="calculation" />
             </div>
 
         </div>
