@@ -22,8 +22,12 @@
     },
     removeDeletedRow: function (component, event, helper) {
         var index = event.getParam("indexVar");
-        var ItemRows = component.get("v.ItemRows");
-        ItemRows.splice(index, 1);
-        component.set("v.ItemRows", ItemRows);
+        var childItemType = event.getParam("itemType");
+        var parItemType = component.get("v.ItemType");
+        if (childItemType == parItemType) {
+            var ItemRows = component.get("v.ItemRows");
+            ItemRows.splice(index, 1);
+            component.set("v.ItemRows", ItemRows);
+        }
     }
 })

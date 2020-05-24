@@ -28,7 +28,7 @@
     deleteRow: function (component, event, helper) {
 
         var evt = $A.get("e.c:DeleteRowEvent");
-        evt.setParams({ "indexVar": component.get("v.RowIndex") }).fire();
+        evt.setParams({ "indexVar": component.get("v.RowIndex"), "itemType": component.get("v.ItemType") }).fire();
     },
     quantityChange: function (component, event, helper) {
         component.set("v.ChosenItem.itemQuantity", component.find("quantityPicklist").get("v.value"));
@@ -54,9 +54,5 @@
         } else if (hasManualDiscField == true && (contactDiscount >= inputtedDiscount))
             component.set("v.ChosenItem.itemDiscount", contactDiscount);
         else component.set("v.ChosenItem.itemDiscount", inputtedDiscount);
-
-
-        // component.get("v.manDiscount");
-
     }
 })

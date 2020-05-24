@@ -45,6 +45,14 @@
             });
         }
         component.find("calculation").set("v.chosenItemsList", fullList);
+        var totalSum = 0;
+        var totalSumWithDiscount = 0;
+        for (var i = 0; i < fullList.length; i++) {
+            totalSum += fullList[i].itemPrice;
+            totalSumWithDiscount += (fullList[i].itemPrice) * (100 - fullList[i].itemDiscount) / 100;
+        }
+        component.find("calculation").set(("v.totalSum"), totalSum);
+        component.find("calculation").set(("v.totalSumWithDiscount"), totalSumWithDiscount);
 
         // var action = component.get("c.combineItemLists");
         // action.setParams({

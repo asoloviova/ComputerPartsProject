@@ -49,7 +49,7 @@
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
                 <lightning:input aura:id="manualDiscount" name="manualDiscount" label="Manual discount"
                     value="{!v.manDiscount}" oncommit="{!c.manDiscountCheck}" formatter="percent-fixed" type="Number"
-                    messageWhenPatternMismatch="Please input only digits" />
+                    min="0" messageWhenRangeUnderflow="Please input only positive numbers" />
             </lightning:layoutItem>
         </aura:if>
 
