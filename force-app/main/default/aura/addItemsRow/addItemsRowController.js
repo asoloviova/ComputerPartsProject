@@ -9,20 +9,28 @@
         });
 
         $A.enqueueAction(action);
+        // var contactDiscount = component.get("v.contactDiscout");
+        // console.log("on init: " + contactDiscount);
+        // component.set("v.ChosenItem.itemDiscount", contactDiscount);
     },
     getDiscountFieldValue: function (component, event) {
         var displayField = event.getParam("discTypeEvt");
         component.set("v.HasManualDiscountField", displayField);
+        var manDiscount = component.get("v.manDiscount");
+        if (displayField == true) {
+            component.set("v.ChosenItem.itemDiscount", manDiscount);
+        }
+        else if (displayField == false) {
+            component.set("v.ChosenItem.itemDiscount", component.get("v.contactDiscount"));
+        }
     },
-    setContactDiscount: function (component, event, helper) {
-        var contactDiscount = event.getParam("contactDiscount")
-        component.set("v.contactDiscount", contactDiscount);
-    },
+
     itemPicklistChange: function (component, event, helper) {
-        helper.uploadDefaultPrice(component, event, helper);
         var inputted = JSON.parse(component.get("v.ItemListValue"));
         component.set("v.ChosenItem.itemName", inputted.Name);
         component.set("v.ChosenItem.itemQuantity", component.get("v.chosenQuantity"));
+        helper.uploadDefaultPrice(component, event, helper);
+        helper.setItemDiscount(component, event, helper);
 
     },
     deleteRow: function (component, event, helper) {
@@ -45,14 +53,10 @@
             });
             toastEvent.fire();
         }
-        var contactDiscount = component.get("v.contactDiscount");
-        console.log("contact's disc: " + contactDiscount);
         var hasManualDiscField = component.get("v.HasManualDiscountField");
         var inputtedDiscount = component.get("v.manDiscount");
-        if (hasManualDiscField == false) {
-            component.set("v.ChosenItem.itemDiscount", contactDiscount);
-        } else if (hasManualDiscField == true && (contactDiscount >= inputtedDiscount))
-            component.set("v.ChosenItem.itemDiscount", contactDiscount);
-        else component.set("v.ChosenItem.itemDiscount", inputtedDiscount);
+        if (hasManualDiscField == true) {
+            component.set("v.ChosenItem.itemDiscount", inputtedDiscount);
+        }
     }
 })

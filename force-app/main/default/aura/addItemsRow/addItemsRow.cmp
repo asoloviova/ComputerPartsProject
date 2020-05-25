@@ -5,18 +5,16 @@
     <aura:attribute name="HasManualDiscountField" type="Boolean" default="false" />
     <aura:attribute name="DefaultPrice" type="Decimal" />
     <aura:attribute name="RowIndex" type="String" />
-    <aura:attribute name="manDiscount" type="Decimal" />
+    <aura:attribute name="manDiscount" type="Decimal" default="0" />
     <aura:attribute name="ItemListValue" type="String" />
     <aura:attribute name="maxDiscount" type="Decimal" />
     <aura:attribute name="ChosenItem" type="Object" />
-    <aura:attribute name="contactDiscount" type="Decimal" />
+    <aura:attribute name="contactDiscount" type="Decimal" default="0" />
     <aura:attribute name="chosenQuantity" type="Integer" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
-    <aura:handler event="c:SetDiscountEvent" action="{!c.setContactDiscount}" />
     <aura:registerEvent name="DeleteRowEvent" type="c:DeleteRowEvent" />
-
     <lightning:layout class="slds-grid">
 
         <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
@@ -48,7 +46,7 @@
         <aura:if isTrue="{!v.HasManualDiscountField}">
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
                 <lightning:input aura:id="manualDiscount" name="manualDiscount" label="Manual discount"
-                    value="{!v.manDiscount}" oncommit="{!c.manDiscountCheck}" formatter="percent-fixed" type="Number"
+                    value="{!v.manDiscount}" onchange="{!c.manDiscountCheck}" formatter="percent-fixed" type="Number"
                     min="0" messageWhenRangeUnderflow="Please input only positive numbers" />
             </lightning:layoutItem>
         </aura:if>

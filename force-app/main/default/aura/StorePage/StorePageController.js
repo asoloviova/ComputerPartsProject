@@ -1,6 +1,7 @@
 ({
     handleCalculation: function (component, event, helper) {
         var contactPicklist = component.find("purchaseSetUp").find("contactPicklistId");
+        // var purchaseDatePicklist = component.find("purchaseSetUp").find("datePicklist");
         // var processorsItemPicklist = component.find("processors").find("itemRow").find("itemPicklist");
         // var ramsItemPicklist = component.find("rams").find("itemRow").find("itemPicklist");
         // var motherboardsItemPicklist = component.find("motherboards").find("itemRow").find("itemPicklist");
@@ -13,6 +14,7 @@
             helper.prepareList(component, event, helper);
         } else {
             contactPicklist.showHelpMessageIfInvalid();
+            // purchaseDatePicklist.showHelpMessageIfInvalid();
             // processorsItemPicklist.showHelpMessageIfInvalid();
             // ramsItemPicklist.showHelpMessageIfInvalid();
             // motherboardsItemPicklist.showHelpMessageIfInvalid();

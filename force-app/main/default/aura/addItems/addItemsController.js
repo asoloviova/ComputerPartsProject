@@ -7,6 +7,11 @@
         var displayField = event.getParam("discTypeEvt");
         component.set("v.HasManualDiscountField", displayField);
     },
+    setContactDiscount: function (component, event, helper) {
+        var contactDiscount = event.getParam("contactDiscount");
+        component.set("v.contactDiscount", contactDiscount);
+        console.log("disc in row parent:" + contactDiscount);
+    },
     addRow: function (component, event, helper) {
         var ItemRows = component.get("v.ItemRows");
         ItemRows.push({
