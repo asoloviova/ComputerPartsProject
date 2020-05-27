@@ -6,10 +6,6 @@ public with sharing class ContactPicklistApexController {
     for (Contact con : allContacts){
         wrappContacts.add(new ContactWrapper(con.name, JSON.serialize(con)));
     }
-        // List<String> cons = new List<String>();
-        // for(Contact contact : allContacts){
-        //     cons.add(JSON.serialize(Name));
-        // }
         return wrappContacts;
     }
 

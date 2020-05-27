@@ -13,7 +13,6 @@
     },
     setItemDiscount: function (component, event, helper) {
         var contactDiscount = component.get("v.contactDiscount");
-        console.log("contact's disc: " + contactDiscount);
         var hasManualDiscField = component.get("v.HasManualDiscountField");
         var inputtedDiscount = component.get("v.manDiscount");
         if (hasManualDiscField == true) {

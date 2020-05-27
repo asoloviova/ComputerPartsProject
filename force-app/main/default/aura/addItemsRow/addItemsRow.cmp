@@ -13,6 +13,7 @@
     <aura:attribute name="chosenQuantity" type="Integer" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:SetDiscountEvent" action="{!c.setContactDiscount}" />
     <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
     <aura:registerEvent name="DeleteRowEvent" type="c:DeleteRowEvent" />
     <lightning:layout class="slds-grid">

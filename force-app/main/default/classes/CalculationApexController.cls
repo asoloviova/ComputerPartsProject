@@ -17,14 +17,6 @@ public with sharing class CalculationApexController {
 
         @AuraEnabled
         public Double itemDiscount{get;set;}
-
-
-        // public ItemWrapper (String itemName, Integer itemQuantity, Double itemPrice, Double itemDiscount){
-        //     this.itemName = itemName;
-        //     this.itemQuantity=itemQuantity;
-        //     this.itemPrice=itemPrice;
-        //     this.itemDiscount=itemDiscount;
-        // }
     }
     @AuraEnabled
     public static List<ItemWrapper> combineItemLists(List<ItemWrapper> procRows, List<ItemWrapper> ramsRows, 
@@ -34,35 +26,27 @@ public with sharing class CalculationApexController {
         fullList.addall(ramsRows);
         fullList.addall(motherboardsRows);
         fullList.addall(videocardsRows);
-        System.debug('hello');
-        System.debug(fullList);
         return fullList;
 
-        
     }
-}
-
-    // public static List<ItemWrapper> getChosenItemsList() {
-        
-        
-    //     // List<Item__c> itemsList = [SELECT Id, Name, Price__c, Type__c FROM Item__c ];
-    //     // List<Contact> conList = [SELECT Id, Name, Personal_Discount__c FROM Contact];
-    //     // List<ItemsWrapper> lst = new List<ItemsWrapper>();
-    //     // for (Item_c item : itemsList){
-    //     //     lst.add(new ItemsWrapper(JSON.serialize(item),JSON.serialize()))
-    //     // }
-    //     // return lst;
-    // }
-    //     @AuraEnabled
-    // public static ItemWrapper getChosenItemsList(){
-    //     List<Item__c> itms = [SELECT Name, Price__c FROM Item__c];
-    //     List<Purchase_Item__c> purchItms = [SELECT Quantity__c, Discount__c FROM Purchase_Item__c];
-    //     ItemWrapper chosenItemsList = new ItemWrapper(Item__c.Name, Purchase_Item__c.Quantity__c, Item__c.Price__c, Purchase_Item__c.Discount__c);
-    //     // chosenItemsList.itemName = itms.Name;
-    //     // chosenItemsList.itemPrice = itms.Price__c;
-    //     // chosenItemsList.itemQuantity = purchItms.Quantity__c;
-    //     // chosenItemsList.itemDiscount = purchItms.Discount__c; 
-    //     System.debug(chosenItemsList);
-    //     return chosenItemsList;
-    // }
-
+    @AuraEnabled
+        public static void saveOrderMethod(String contId, List<ItemWrapper> chosenItems, Decimal totalSumWithDiscount, 
+        String purchDate, String discountType ){
+        Contact contact = [SELECT Id FROM Contact WHERE Id=:contId LIMIT 1];
+        Date purchaseDate = Date.valueOf(purchDate);
+        String discType = discountType.substring(0, 1).toUpperCase() + discountType.substring(1);
+        Purchase__c purch = new Purchase__c(Contact__c = contact.Id, Amount__c = totalSumWithDiscount, 
+        Purchase_Date__c = purchaseDate, Discount_Type__c = discType);
+        insert purch;
+        List <Purchase_Item__c> purchItemsList = new List<Purchase_Item__c>();
+        for(ItemWrapper chosenItem : chosenItems){
+            if (!String.isBlank(chosenItem.itemName)){
+                Item__c item = [SELECT Id, Name FROM Item__c WHERE Name=:chosenItem.itemName];
+                purchItemsList.add(new Purchase_Item__c (Discount__c = chosenItem.itemDiscount,
+            Item__c = item.Id, Purchase__c = purch.Id, Quantity__c = chosenItem.itemQuantity));
+            }
+            System.debug('chosenItem: '+ chosenItem);
+        }
+        insert purchItemsList;
+    }
+    }

@@ -26,7 +26,6 @@
                     required="true" onchange="{!c.displayManualDiscountField}">
                     <option value="automatic">Automatic</option>
                     <option value="manual">Manual</option>
-
                 </lightning:select>
             </lightning:layoutItem>
         </lightning:layout>

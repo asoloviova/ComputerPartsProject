@@ -9,9 +9,15 @@
         });
 
         $A.enqueueAction(action);
-        // var contactDiscount = component.get("v.contactDiscout");
-        // console.log("on init: " + contactDiscount);
-        // component.set("v.ChosenItem.itemDiscount", contactDiscount);
+        component.set("v.HasManualDiscountField", false);
+    },
+    setContactDiscount: function (component, event, helper) {
+        var contactDiscount = event.getParam("contactDiscount");
+        component.set("v.contactDiscount", contactDiscount);
+        var discountField = component.get("v.HasManualDiscountField");
+        if (discountField == false) {
+            component.set("v.ChosenItem.itemDiscount", contactDiscount);
+        }
     },
     getDiscountFieldValue: function (component, event) {
         var displayField = event.getParam("discTypeEvt");
