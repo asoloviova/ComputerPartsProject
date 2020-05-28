@@ -17,7 +17,11 @@
         action.setCallback(this, function (response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                console.log("successfully created");
+                var toastEvent = $A.get("e.force:showToast");
+                toastEvent.setParams({
+                    message: "Successfully saved!"
+                });
+                toastEvent.fire();
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 var toastEvent = $A.get("e.force:showToast");
