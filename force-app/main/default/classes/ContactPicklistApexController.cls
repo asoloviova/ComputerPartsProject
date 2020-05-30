@@ -3,9 +3,9 @@ public with sharing class ContactPicklistApexController {
     public static List<ContactWrapper> getContactsPicklist(){
         List<Contact> allContacts = [SELECT Name, Personal_Discount__c FROM Contact];
         List <ContactWrapper> wrappContacts = new List<ContactWrapper>();
-    for (Contact con : allContacts){
-        wrappContacts.add(new ContactWrapper(con.name, JSON.serialize(con)));
-    }
+        for (Contact con : allContacts){
+            wrappContacts.add(new ContactWrapper(con.name, JSON.serialize(con)));
+        }
         return wrappContacts;
     }
 
