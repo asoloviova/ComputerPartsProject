@@ -13,6 +13,8 @@
     <aura:iteration items="{!v.ItemRows}" var="row" indexVar="index">
         <c:addItemsRow aura:id="itemRow" ItemType="{!v.ItemType}" RowIndex="{!index}" ChosenItem="{!row}"
             HasManualDiscountField="{!v.HasManualDiscountField}" contactDiscount="{!v.contactDiscount}" />
+        <!-- <c:addItemsRow aura:id="itemRow" ItemType="{!v.ItemType}" RowIndex="{!index}" ChosenItem="{!row}"
+            contactDiscount="{!v.contactDiscount}" /> -->
     </aura:iteration>
 
     <lightning:button class="slds-m-bottom_small slds-m-left_small" variant="base" label="Add Row"

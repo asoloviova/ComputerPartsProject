@@ -9,7 +9,6 @@
         });
 
         $A.enqueueAction(action);
-        component.set("v.HasManualDiscountField", false);
     },
     setContactDiscount: function (component, event, helper) {
         var contactDiscount = event.getParam("contactDiscount");

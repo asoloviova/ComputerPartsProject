@@ -2,7 +2,7 @@
     <aura:attribute name="ItemType" type="String" />
     <aura:attribute name="Item" type="Item__c" />
     <aura:attribute name="ItemList" type="List" />
-    <aura:attribute name="HasManualDiscountField" type="Boolean" default="false" />
+    <aura:attribute name="HasManualDiscountField" type="Boolean" />
     <aura:attribute name="DefaultPrice" type="Decimal" />
     <aura:attribute name="RowIndex" type="String" />
     <aura:attribute name="manDiscount" type="Decimal" default="0" />

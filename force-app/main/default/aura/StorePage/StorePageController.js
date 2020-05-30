@@ -1,10 +1,10 @@
 ({
     handleCalculation: function (component, event, helper) {
-        component.set("v.displayCalculation", true);
+
         var contactPicklist = component.find("purchaseSetUp").find("contactPicklistId");
         if (contactPicklist.get("v.value")) {
-            helper.contactNameOutput(component, event, helper);
             helper.prepareList(component, event, helper);
+            helper.contactNameOutput(component, event, helper);
         } else {
             contactPicklist.showHelpMessageIfInvalid();
         }
