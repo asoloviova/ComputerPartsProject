@@ -1,37 +1,30 @@
 ({
-    doInit: function (component, event, helper) {
-        helper.setWrapperList(component, event, helper);
-
+    getDiscountFieldValue: function (component, event) {
+        let displayField = event.getParam("discTypeEvt");
+        component.set("v.hasManualDiscountFiled", displayField);
     },
-    getDiscountFieldValue: function (component, event, helper) {
-        var displayField = event.getParam("discTypeEvt");
-        console.log('display field value inn addItems: ' + displayField);
-        component.set("v.HasManualDiscountField", displayField);
-        // component.set((component.find("itemRow").get("v.HasManualDiscountField")), displayField);
-
-    },
-    setContactDiscount: function (component, event, helper) {
-        var contactDiscount = event.getParam("contactDiscount");
+    setContactDiscount: function (component, event) {
+        let contactDiscount = event.getParam("contactDiscount");
         component.set("v.contactDiscount", contactDiscount);
     },
     addRow: function (component, event, helper) {
-        var ItemRows = component.get("v.ItemRows");
-        ItemRows.push({
+        let itemRows = component.get("v.itemRows");
+        itemRows.push({
             'itemName': '',
             'itemQuantity': '',
             'itemPrice': '',
             'itemDiscount': ''
         });
-        component.set("v.ItemRows", ItemRows);
+        component.set("v.itemRows", itemRows);
     },
     removeDeletedRow: function (component, event, helper) {
-        var index = event.getParam("indexVar");
-        var childItemType = event.getParam("itemType");
-        var parItemType = component.get("v.ItemType");
-        if (childItemType == parItemType) {
-            var ItemRows = component.get("v.ItemRows");
-            ItemRows.splice(index, 1);
-            component.set("v.ItemRows", ItemRows);
+        let index = event.getParam("indexVar");
+        let childitemType = event.getParam("itemType");
+        let paritemType = component.get("v.itemType");
+        if (childitemType == paritemType) {
+            let itemRows = component.get("v.itemRows");
+            itemRows.splice(index, 1);
+            component.set("v.itemRows", itemRows);
         }
     }
 })

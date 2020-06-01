@@ -1,4 +1,4 @@
-public with sharing class ContactPicklistApexController {
+public with sharing class ContactPicklistController {
     @AuraEnabled
     public static List<ContactWrapper> getContactsPicklist(){
         List<Contact> allContacts = [SELECT Name, Personal_Discount__c FROM Contact];

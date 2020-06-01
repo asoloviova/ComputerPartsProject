@@ -1,9 +1,8 @@
 @IsTest 
 private with sharing class CalculationTest {
     @IsTest private static void getChosenItemsListTest() {
-        CalculationApexController calcController = new CalculationApexController();
-        CalculationApexController.ItemWrapper itmWrapp = new CalculationApexController.ItemWrapper();
-        CalculationApexController.getChosenItemsList();
+        CalculationController calcController = new CalculationController();
+        CalculationController.ItemWrapper itmWrapp = new CalculationController.ItemWrapper();
     }
     @IsTest private static void saveOrderTest(){
         Contact cont = new Contact (LastName = 'Black', Total_Amount__c = 0);
@@ -13,17 +12,17 @@ private with sharing class CalculationTest {
         System.debug(dateStr);
         Decimal totalSumWithDiscount = 34567;
         String discType = 'Automatic';
-        CalculationApexController.ItemWrapper itmWrapp = new CalculationApexController.ItemWrapper();
+        CalculationController.ItemWrapper itmWrapp = new CalculationController.ItemWrapper();
         itmWrapp.itemName = 'AMD Ryzen';
         itmWrapp.itemDiscount = 25;
         itmWrapp.itemPrice = 564;
         itmWrapp.itemQuantity = 3;
 
-        List<CalculationApexController.ItemWrapper> itmList = new List<CalculationApexController.ItemWrapper>();
+        List<CalculationController.ItemWrapper> itmList = new List<CalculationController.ItemWrapper>();
         itmList.add(itmWrapp);
         System.debug('list size: '+ itmList);
         try {
-            CalculationApexController.saveOrderMethod(cont.Id, itmList, totalSumWithDiscount, dateStr, discType);
+            CalculationController.saveOrderMethod(cont.Id, itmList, totalSumWithDiscount, dateStr, discType);
         } catch (Exception e) {
             System.debug('exception: '+e);
             System.debug('list: '+itmList);

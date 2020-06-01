@@ -1,22 +1,23 @@
-<aura:component controller="CalculationApexController">
-    <aura:attribute name="ItemType" type="String" />
-    <aura:attribute name="ItemRows" type="List" />
-    <aura:attribute name="HasManualDiscountField" type="Boolean" />
+<aura:component controller="CalculationController">
+
+    <aura:attribute name="itemType" type="String" />
+    <aura:attribute name="itemRows" type="List" />
+    <aura:attribute name="hasManualDiscountFiled" type="Boolean" />
     <aura:attribute name="contactDiscount" type="Decimal" />
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:handler event="c:DeleteRowEvent" action="{!c.removeDeletedRow}" />
-    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
-    <aura:handler event="c:SetDiscountEvent" action="{!c.setContactDiscount}" />
 
-    <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">{!v.ItemType}s</div>
+    <aura:handler event="c:deleteRowEvent" action="{!c.removeDeletedRow}" />
+    <aura:handler event="c:displayManDiscountField" action="{!c.getDiscountFieldValue}" />
+    <aura:handler event="c:setDiscountEvent" action="{!c.setContactDiscount}" />
 
-    <aura:iteration items="{!v.ItemRows}" var="row" indexVar="index">
-        <c:addItemsRow aura:id="itemRow" ItemType="{!v.ItemType}" RowIndex="{!index}" ChosenItem="{!row}"
-            HasManualDiscountField="{!v.HasManualDiscountField}" contactDiscount="{!v.contactDiscount}" />
-        <!-- <c:addItemsRow aura:id="itemRow" ItemType="{!v.ItemType}" RowIndex="{!index}" ChosenItem="{!row}"
-            contactDiscount="{!v.contactDiscount}" /> -->
-    </aura:iteration>
+    <div>
+        <div class="slds-text-heading_medium slds-p-around_medium slds-border_bottom">{!v.itemType}s</div>
 
-    <lightning:button class="slds-m-bottom_small slds-m-left_small" variant="base" label="Add Row"
-        onclick="{!c.addRow}" />
+        <aura:iteration items="{!v.itemRows}" var="row" indexVar="index">
+            <c:AddItemsRow aura:id="itemRow" itemType="{!v.itemType}" rowIndex="{!index}" chosenItem="{!row}"
+                hasManualDiscountFiled="{!v.hasManualDiscountFiled}" contactDiscount="{!v.contactDiscount}" />
+        </aura:iteration>
+
+        <lightning:button class="slds-m-bottom_small slds-m-left_small" variant="base" label="Add Row"
+            onclick="{!c.addRow}" />
+    </div>
 </aura:component>

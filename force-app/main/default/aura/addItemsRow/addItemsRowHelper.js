@@ -1,23 +1,23 @@
 ({
     getMaxDisc: function (component, event, helper) {
-        var getMaxDisc = component.get("c.getMaxCustomDiscount");
+        let getMaxDisc = component.get("c.getMaxCustomDiscount");
         getMaxDisc.setCallback(this, function (response) {
-            var maxDisc = response.getReturnValue();
+            let maxDisc = response.getReturnValue();
             component.set("v.maxDiscount", maxDisc);
         });
         $A.enqueueAction(getMaxDisc);
     },
     uploadDefaultPrice: function (component, event, helper) {
-        var item = JSON.parse(component.get("v.ItemListValue"));
-        component.set("v.ChosenItem.itemPrice", item.Price__c);
+        let item = JSON.parse(component.get("v.itemListValue"));
+        component.set("v.chosenItem.itemPrice", item.Price__c);
     },
     setItemDiscount: function (component, event, helper) {
-        var contactDiscount = component.get("v.contactDiscount");
-        var hasManualDiscField = component.get("v.HasManualDiscountField");
-        var inputtedDiscount = component.get("v.manDiscount");
+        let contactDiscount = component.get("v.contactDiscount");
+        let hasManualDiscField = component.get("v.hasManualDiscountFiled");
+        let inputtedDiscount = component.get("v.manDiscount");
         if (hasManualDiscField == true) {
-            component.set("v.ChosenItem.itemDiscount", inputtedDiscount);
+            component.set("v.chosenItem.itemDiscount", inputtedDiscount);
         } else
-            component.set("v.ChosenItem.itemDiscount", contactDiscount);
+            component.set("v.chosenItem.itemDiscount", contactDiscount);
     }
 })

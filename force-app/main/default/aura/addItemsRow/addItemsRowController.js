@@ -1,67 +1,67 @@
 ({
     doInit: function (component, event, helper) {
-        var action = component.get("c.getItemsPicklist");
-        action.setParams({ type: component.get("v.ItemType") });
+        let action = component.get("c.getItemsPicklist");
+        action.setParams({ type: component.get("v.itemType") });
         action.setCallback(this, function (response) {
-            var allValues = response.getReturnValue();
-            component.set("v.ItemList", allValues);
+            let allValues = response.getReturnValue();
+            component.set("v.itemList", allValues);
             helper.getMaxDisc(component, event, helper);
         });
 
         $A.enqueueAction(action);
     },
     setContactDiscount: function (component, event, helper) {
-        var contactDiscount = event.getParam("contactDiscount");
+        let contactDiscount = event.getParam("contactDiscount");
         component.set("v.contactDiscount", contactDiscount);
-        var discountField = component.get("v.HasManualDiscountField");
+        let discountField = component.get("v.hasManualDiscountFiled");
         if (discountField == false) {
-            component.set("v.ChosenItem.itemDiscount", contactDiscount);
+            component.set("v.chosenItem.itemDiscount", contactDiscount);
         }
     },
     getDiscountFieldValue: function (component, event) {
-        var displayField = event.getParam("discTypeEvt");
-        component.set("v.HasManualDiscountField", displayField);
-        var manDiscount = component.get("v.manDiscount");
+        let displayField = event.getParam("discTypeEvt");
+        component.set("v.hasManualDiscountFiled", displayField);
+        let manDiscount = component.get("v.manDiscount");
         if (displayField == true) {
-            component.set("v.ChosenItem.itemDiscount", manDiscount);
+            component.set("v.chosenItem.itemDiscount", manDiscount);
         }
         else if (displayField == false) {
-            component.set("v.ChosenItem.itemDiscount", component.get("v.contactDiscount"));
+            component.set("v.chosenItem.itemDiscount", component.get("v.contactDiscount"));
         }
     },
 
     itemPicklistChange: function (component, event, helper) {
-        var inputted = JSON.parse(component.get("v.ItemListValue"));
-        component.set("v.ChosenItem.itemName", inputted.Name);
-        component.set("v.ChosenItem.itemQuantity", component.get("v.chosenQuantity"));
+        let inputted = JSON.parse(component.get("v.itemListValue"));
+        component.set("v.chosenItem.itemName", inputted.Name);
+        component.set("v.chosenItem.itemQuantity", component.get("v.chosenQuantity"));
         helper.uploadDefaultPrice(component, event, helper);
         helper.setItemDiscount(component, event, helper);
 
     },
     deleteRow: function (component, event, helper) {
 
-        var evt = $A.get("e.c:DeleteRowEvent");
-        evt.setParams({ "indexVar": component.get("v.RowIndex"), "itemType": component.get("v.ItemType") }).fire();
+        let evt = $A.get("e.c:deleteRowEvent");
+        evt.setParams({ "indexVar": component.get("v.rowIndex"), "itemType": component.get("v.itemType") }).fire();
     },
-    quantityChange: function (component, event, helper) {
-        component.set("v.ChosenItem.itemQuantity", component.find("quantityPicklist").get("v.value"));
+    quantityChange: function (component) {
+        component.set("v.chosenItem.itemQuantity", component.find("quantityPicklist").get("v.value"));
     },
     manDiscountCheck: function (component, event, helper) {
 
-        var discInput = component.get("v.manDiscount");
-        var maxDisc = component.get("v.maxDiscount");
+        let discInput = component.get("v.manDiscount");
+        let maxDisc = component.get("v.maxDiscount");
         if (discInput > maxDisc) {
             component.set("v.manDiscount", maxDisc);
-            var toastEvent = $A.get("e.force:showToast");
+            let toastEvent = $A.get("e.force:showToast");
             toastEvent.setParams({
                 message: 'Input manual discount less than ' + maxDisc + '%',
             });
             toastEvent.fire();
         }
-        var hasManualDiscField = component.get("v.HasManualDiscountField");
-        var inputtedDiscount = component.get("v.manDiscount");
+        let hasManualDiscField = component.get("v.hasManualDiscountFiled");
+        let inputtedDiscount = component.get("v.manDiscount");
         if (hasManualDiscField == true) {
-            component.set("v.ChosenItem.itemDiscount", inputtedDiscount);
+            component.set("v.chosenItem.itemDiscount", inputtedDiscount);
         }
     }
 })

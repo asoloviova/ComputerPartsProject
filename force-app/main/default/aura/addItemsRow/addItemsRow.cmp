@@ -1,62 +1,64 @@
-<aura:component controller="ItemPicklistApexController" access="global">
-    <aura:attribute name="ItemType" type="String" />
-    <aura:attribute name="Item" type="Item__c" />
-    <aura:attribute name="ItemList" type="List" />
-    <aura:attribute name="HasManualDiscountField" type="Boolean" />
-    <aura:attribute name="DefaultPrice" type="Decimal" />
-    <aura:attribute name="RowIndex" type="String" />
+<aura:component controller="ItemPicklistController" access="global">
+
+    <aura:attribute name="itemType" type="String" />
+    <aura:attribute name="itemList" type="List" />
+    <aura:attribute name="hasManualDiscountFiled" type="Boolean" />
+    <aura:attribute name="rowIndex" type="String" />
     <aura:attribute name="manDiscount" type="Decimal" default="0" />
-    <aura:attribute name="ItemListValue" type="String" />
+    <aura:attribute name="itemListValue" type="String" />
     <aura:attribute name="maxDiscount" type="Decimal" />
-    <aura:attribute name="ChosenItem" type="Object" />
+    <aura:attribute name="chosenItem" type="Object" />
     <aura:attribute name="contactDiscount" type="Decimal" default="0" />
     <aura:attribute name="chosenQuantity" type="Integer" />
 
+    <aura:registerEvent name="DeleteRowEvent" type="c:deleteRowEvent" />
+
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:handler event="c:SetDiscountEvent" action="{!c.setContactDiscount}" />
-    <aura:handler event="c:DisplayManualDiscountField" action="{!c.getDiscountFieldValue}" />
-    <aura:registerEvent name="DeleteRowEvent" type="c:DeleteRowEvent" />
-    <lightning:layout class="slds-grid">
+    <aura:handler event="c:setDiscountEvent" action="{!c.setContactDiscount}" />
+    <aura:handler event="c:displayManDiscountField" action="{!c.getDiscountFieldValue}" />
 
-        <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.ItemType}" required="true"
-                onchange="{!c.itemPicklistChange}" value="{!v.ItemListValue}">
-                <option value="">Choose {!v.ItemType}</option>
-                <aura:iteration items="{!v.ItemList}" var="itm">
-                    <option value="{!itm.value}" text="{!itm.label}" selected="{!v.ItemListValue==itm.value}" />
-                </aura:iteration>
-            </lightning:select>
-        </lightning:layoutItem>
+    <div>
+        <lightning:layout class="slds-grid">
 
-        <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:select aura:id="quantityPicklist" name="quantityPicklist" label="Quantity" required="true"
-                onchange="{!c.quantityChange}" value="{!v.chosenQuantity}">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </lightning:select>
-        </lightning:layoutItem>
-
-        <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-            <lightning:input name="defaultPriceField" value="{!v.ChosenItem.itemPrice}" label="Default Price, USD"
-                readonly="true" formatter="currency" />
-        </lightning:layoutItem>
-
-        <aura:if isTrue="{!v.HasManualDiscountField}">
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
-                <lightning:input aura:id="manualDiscount" name="manualDiscount" label="Manual discount"
-                    value="{!v.manDiscount}" onchange="{!c.manDiscountCheck}" formatter="percent-fixed" type="Number"
-                    min="0" messageWhenRangeUnderflow="Please input only positive numbers" />
+                <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.itemType}" required="true"
+                    onchange="{!c.itemPicklistChange}" value="{!v.itemListValue}">
+                    <option value="">Choose {!v.itemType}</option>
+                    <aura:iteration items="{!v.itemList}" var="itm">
+                        <option value="{!itm.value}" text="{!itm.label}" selected="{!v.itemListValue==itm.value}" />
+                    </aura:iteration>
+                </lightning:select>
             </lightning:layoutItem>
-        </aura:if>
 
-        <lightning:layoutItem padding="around-small" class="slds-size_1-of-5 ">
-            <lightning:buttonIcon iconName="utility:delete" variant="container" alternativeText="Delete" title="Delete"
-                class="slds-m-top_large" onclick="{!c.deleteRow}" />
-        </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
+                <lightning:select aura:id="quantityPicklist" name="quantityPicklist" label="Quantity" required="true"
+                    onchange="{!c.quantityChange}" value="{!v.chosenQuantity}">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </lightning:select>
+            </lightning:layoutItem>
 
-    </lightning:layout>
+            <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
+                <lightning:input name="defaultPriceField" value="{!v.chosenItem.itemPrice}" label="Default Price, USD"
+                    readonly="true" formatter="currency" />
+            </lightning:layoutItem>
 
+            <aura:if isTrue="{!v.hasManualDiscountFiled}">
+                <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
+                    <lightning:input aura:id="manualDiscount" name="manualDiscount" label="Manual discount"
+                        value="{!v.manDiscount}" onchange="{!c.manDiscountCheck}" formatter="percent-fixed"
+                        type="Number" min="0" messageWhenRangeUnderflow="Please input only positive numbers" />
+                </lightning:layoutItem>
+            </aura:if>
+
+            <lightning:layoutItem padding="around-small" class="slds-size_1-of-5 ">
+                <lightning:buttonIcon iconName="utility:delete" variant="container" alternativeText="Delete"
+                    title="Delete" class="slds-m-top_large" onclick="{!c.deleteRow}" />
+            </lightning:layoutItem>
+
+        </lightning:layout>
+    </div>
 </aura:component>

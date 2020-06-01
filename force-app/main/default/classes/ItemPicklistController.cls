@@ -1,4 +1,4 @@
-public with sharing class ItemPicklistApexController {
+public with sharing class ItemPicklistController {
     @AuraEnabled
     public static List<Option> getItemsPicklist(String type){
 
@@ -12,8 +12,8 @@ public with sharing class ItemPicklistApexController {
 
     @AuraEnabled
     public static Decimal getMaxCustomDiscount(){
-        Id profileId=userinfo.getProfileId();
-        Discount__c disc = Discount__c.getInstance(profileId);
+        Id userId=userinfo.getUserId();
+        Discount__c disc = Discount__c.getInstance(userId);
         Decimal maxDisc = disc.Max_Discount__c;
         return maxDisc;
 

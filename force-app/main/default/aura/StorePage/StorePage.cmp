@@ -1,42 +1,45 @@
-<aura:component implements="force:appHostable" controller="CalculationApexController">
+<aura:component implements="force:appHostable" controller="CalculationController">
+
     <aura:attribute name="chosenItemsList" type="List" />
     <aura:attribute name="displayCalculation" type="Boolean" default="false" />
 
-    <div class="slds-m-vertical_small">
-        <c:StoreHeader />
-    </div>
-
-    <div class="slds-card slds-m-vertical_small">
-        <c:PurchaseSetUp aura:id="purchaseSetUp" />
-    </div>
-
-    <div class="slds-grid slds-gutters">
-        <div class="slds-col slds-size_1-of-2">
-
-            <div class="slds-card ">
-                <c:addItems ItemType="Processor" aura:id="processors" />
-            </div>
-
-            <div class="slds-card ">
-                <c:addItems ItemType="RAM" aura:id="rams" />
-            </div>
-            <div class="slds-card ">
-                <c:addItems ItemType="Motherboard" aura:id="motherboards" />
-            </div>
-            <div class="slds-card ">
-                <c:addItems ItemType="Video Card" aura:id="videocards" />
-            </div>
-
-            <div class="slds-p-around_small">
-                <button class="slds-button slds-button_brand" onclick="{!c.handleCalculation}">Calculate</button>
-            </div>
+    <div>
+        <div class="slds-m-vertical_small">
+            <c:StoreHeader />
         </div>
-        <aura:if isTrue="{!v.displayCalculation}">
-            <div class="slds-col slds-size_1-of-2 ">
-                <div class="slds-card">
-                    <c:Calculation aura:id="calculation" />
+
+        <div class="slds-card slds-m-vertical_small">
+            <c:PurchaseSetUp aura:id="purchaseSetUp" />
+        </div>
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+
+                <div class="slds-card ">
+                    <c:AddItems itemType="Processor" aura:id="processors" />
+                </div>
+
+                <div class="slds-card ">
+                    <c:AddItems itemType="RAM" aura:id="rams" />
+                </div>
+                <div class="slds-card ">
+                    <c:AddItems itemType="Motherboard" aura:id="motherboards" />
+                </div>
+                <div class="slds-card ">
+                    <c:AddItems itemType="Video Card" aura:id="videocards" />
+                </div>
+
+                <div class="slds-p-around_small">
+                    <button class="slds-button slds-button_brand" onclick="{!c.handleCalculation}">Calculate</button>
                 </div>
             </div>
-        </aura:if>
+            <aura:if isTrue="{!v.displayCalculation}">
+                <div class="slds-col slds-size_1-of-2 ">
+                    <div class="slds-card">
+                        <c:Calculation aura:id="calculation" />
+                    </div>
+                </div>
+            </aura:if>
+        </div>
     </div>
 </aura:component>

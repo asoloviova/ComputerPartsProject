@@ -1,33 +1,26 @@
 ({
     doInit: function (component, event, helper) {
-        var action = component.get("c.getContactsPicklist");
+        let action = component.get("c.getContactsPicklist");
         action.setCallback(this, function (response) {
-            var allValues = (response.getReturnValue());
-            console.log(allValues);
-            component.set("v.ContactPick", (allValues));
+            let allValues = (response.getReturnValue());
+            component.set("v.contactPick", allValues);
+            let today = new Date();
+            component.set("v.purchaseDate", (today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()));
         });
         $A.enqueueAction(action);
-        var today = new Date();
-        component.set("v.purchaseDate", (today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()));
+
     },
     displayManualDiscountField: function (component, event, helper) {
-        var type = component.find("discountTypePicklist").get("v.value");
-
-        var evt = $A.get("e.c:DisplayManualDiscountField");
-        if (type == "manual") {
-            evt.setParams({ "discTypeEvt": true });
-        }
-        else if (type == "automatic") {
-            evt.setParams({ "discTypeEvt": false });
-        }
+        let type = component.find("discountTypePicklist").get("v.value");
+        let evt = $A.get("e.c:displayManDiscountField");
+        evt.setParams({ "discTypeEvt": type == "manual" });
         evt.fire();
 
     },
     setContactDiscount: function (component, event, helper) {
 
-        var contactValue = JSON.parse(component.get("v.Contact"));
-        console.log("disc in purch: " + contactValue.Personal_Discount__c);
-        var evt = $A.get("e.c:SetDiscountEvent");
+        let contactValue = JSON.parse(component.get("v.contact"));
+        let evt = $A.get("e.c:setDiscountEvent");
         if (contactValue.Personal_Discount__c) {
             evt.setParams({ "contactDiscount": contactValue.Personal_Discount__c });
         }
