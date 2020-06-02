@@ -1,5 +1,0 @@
-<aura:component>
-    <lightning:card class="slds-align_absolute-center">
-        <div class="slds-text-heading_large">Computer Parts Store</div>
-    </lightning:card>
-</aura:component>
