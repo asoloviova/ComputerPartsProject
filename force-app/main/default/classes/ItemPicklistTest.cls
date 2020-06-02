@@ -7,7 +7,7 @@ private class ItemPicklistTest {
         insert itm;
         Profile pf= [SELECT Id FROM Profile WHERE Name='System Administrator']; 
         User u = new User(Alias = 'standt', Email='test@sashaorg.com', 
-            EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+            EmailEncodingKey='UTF-8', LastName='Test', LanguageLocaleKey='en_US', 
             LocaleSidKey='en_US', ProfileId = pf.Id, 
             TimeZoneSidKey='America/Los_Angeles', UserName='test@sashaorg.com');
         insert u;

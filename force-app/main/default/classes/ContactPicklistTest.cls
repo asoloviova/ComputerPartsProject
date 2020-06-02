@@ -6,7 +6,7 @@ private with sharing class ContactPicklistTest {
         insert con;
     }
     @isTest private static void getContactsPicklistTest(){
-        Contact con = [SELECT Id, Name FROM Contact WHERE LastName = 'Bold'];
+        Contact con = [SELECT Id, Name FROM Contact WHERE LastName = 'Bold']; 
         Test.startTest();
             ContactPicklistController.ContactWrapper contWrapp = new ContactPicklistController.ContactWrapper(con.Name,JSON.serialize(con));
             List <ContactPicklistController.ContactWrapper> wrappList = ContactPicklistController.getContactsPicklist();

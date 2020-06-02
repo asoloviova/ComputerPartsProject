@@ -3,6 +3,7 @@ private with sharing class CalculationTest {
     static String dateStr = Datetime.now().format('YYYY-MM-dd');
     static Decimal totalSumWithDiscount = 34567;
     static String discType = 'Automatic';
+    
     @TestSetup
     static void setup(){
         Contact cont = new Contact (LastName = 'Black', Total_Amount__c = 0);

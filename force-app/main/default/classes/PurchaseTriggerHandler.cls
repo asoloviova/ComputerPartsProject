@@ -1,6 +1,7 @@
 public with sharing class PurchaseTriggerHandler {
     public static void purchaseDataSetup(List<Purchase__c> purchases) {
         List<Id> contIdList = new List<Id>();
+        
         for (Purchase__c newPurch : purchases){
             if(String.isNotBlank(newPurch.Contact__c)){
                 contIdList.add(newPurch.Contact__c);
