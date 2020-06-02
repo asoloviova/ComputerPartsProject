@@ -25,7 +25,15 @@
 		<name>AppMenu</name>
 	</types>
 	<types>
-		<members>*</members>
+		<members>AddItems</members>
+		<members>AddItemsRow</members>
+		<members>Calculation</members>
+		<members>PurchaseSetUp</members>
+		<members>StoreHeader</members>
+		<members>StorePage</members>
+		<members>deleteRowEvent</members>
+		<members>displayManDiscountField</members>
+		<members>setDiscountEvent</members>
 		<name>AuraDefinitionBundle</name>
 	</types>
 	<types>
