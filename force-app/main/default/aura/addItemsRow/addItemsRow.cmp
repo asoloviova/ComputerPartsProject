@@ -22,7 +22,7 @@
 
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
                 <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.itemType}" required="true"
-                    onchange="{!c.itemPicklistChange}" value="{!v.itemListValue}">
+                    value="{!v.itemListValue}" onchange="{!c.itemPicklistChange}">
                     <option value="">Choose {!v.itemType}</option>
                     <aura:iteration items="{!v.itemList}" var="itm">
                         <option value="{!itm.value}" text="{!itm.label}" selected="{!v.itemListValue==itm.value}" />
