@@ -11,6 +11,10 @@ private class ItemPicklistTest {
             LocaleSidKey='en_US', ProfileId = pf.Id, 
             TimeZoneSidKey='America/Los_Angeles', UserName='test@sashaorg.com');
         insert u;
+        Discount__c disc = Discount__c.getInstance(u.Id);
+        disc.Max_Discount__c = 20;
+        upsert disc;
+
     }
    @isTest private static void getItemsPicklistTest() {
     String type='Processor';
@@ -31,6 +35,7 @@ private class ItemPicklistTest {
                 Discount__c disc = Discount__c.getInstance(u.Id);
                 Decimal testDisc = disc.Max_Discount__c;
                 Decimal maxDisc = ItemPicklistController.getMaxCustomDiscount();
+                System.assertEquals(20, maxDisc);
                 System.assertEquals(testDisc, maxDisc);
             }
         System.test.stopTest();
