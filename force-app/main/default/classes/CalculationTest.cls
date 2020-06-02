@@ -1,5 +1,8 @@
 @IsTest 
 private with sharing class CalculationTest {
+    static String dateStr = Datetime.now().format('YYYY-MM-dd');
+    static Decimal totalSumWithDiscount = 34567;
+    static String discType = 'Automatic';
     @TestSetup
     static void setup(){
         Contact cont = new Contact (LastName = 'Black', Total_Amount__c = 0);
@@ -10,28 +13,27 @@ private with sharing class CalculationTest {
         }
         insert itemList;
     }
-
-    @IsTest private static void saveOrderTest(){
-        Contact cont = [SELECT Id FROM Contact];
-        String dateStr = Datetime.now().format('YYYY-MM-dd');
-        Decimal totalSumWithDiscount = 34567;
-        String discType = 'Automatic';
+    static CalculationController.ItemWrapper createWrapper(){
         CalculationController.ItemWrapper itmWrapp = new CalculationController.ItemWrapper();
         itmWrapp.itemName = 'Asus Prime 1';
         itmWrapp.itemDiscount = 25;
         itmWrapp.itemPrice = 564;
         itmWrapp.itemQuantity = 3;
+        return itmWrapp;
+    }
 
+    @IsTest private static void saveOrderTest(){
+        Contact cont = [SELECT Id FROM Contact];
+        CalculationController.ItemWrapper itmWrapp = createWrapper();
         List<CalculationController.ItemWrapper> itmList = new List<CalculationController.ItemWrapper>();
         itmList.add(itmWrapp);
-
-        System.Test.startTest();
+        Test.startTest();
             try {
                 CalculationController.saveOrderMethod(cont.Id, itmList, totalSumWithDiscount, dateStr, discType);
             } catch (Exception e) {
                 System.debug('exception: '+e);
             }
-        System.Test.stopTest();
+        Test.stopTest();
         Integer purch = [SELECT COUNT() FROM Purchase__c];
         Integer purchItems = [SELECT COUNT() FROM Purchase_Item__c ];
 

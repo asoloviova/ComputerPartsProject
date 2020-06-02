@@ -19,10 +19,10 @@ private class ItemPicklistTest {
    @isTest private static void getItemsPicklistTest() {
     String type='Processor';
         Item__c itm = [SELECT Id, Name FROM Item__c];
-        System.Test.startTest();
+        Test.startTest();
             ItemPicklistController.Option optn = new ItemPicklistController.Option(itm.Name, JSON.serialize(itm));
             List<ItemPicklistController.Option> optnList = ItemPicklistController.getItemsPicklist(type);
-        System.Test.stopTest();
+        Test.stopTest();
         System.assertEquals(itm.Name, optn.label);
         System.assertEquals(JSON.serialize(itm), optn.value);
         System.assertEquals(1, optnList.size());
