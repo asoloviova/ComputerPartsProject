@@ -3,6 +3,9 @@ private with sharing class CalculationTest {
     static String dateStr = Datetime.now().format('YYYY-MM-dd');
     static Decimal totalSumWithDiscount = 34567;
     static String discType = 'Automatic';
+    static String expBody = 'Sent from your Twilio trial account - Thank you for the purchase!';
+    static String ph = '+380731826224';
+    static String expFrom = '+12055518213';
     
     @TestSetup
     static void setup(){
@@ -42,5 +45,15 @@ private with sharing class CalculationTest {
         System.assertEquals(1, purchItems);
 
     }
+    @isTest static void smsSendingTest() {
 
+        Test.setMock(HttpCalloutMock.class, new SendSmsCalloutMock()); 
+        Test.startTest();
+            String jsonInput = CalculationController.sendSms(ph);
+        Test.stopTest();
+        Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(jsonInput);
+        System.assertEquals(expBody,m.get('body'));
+        System.assertEquals(ph, m.get('to'));
+        System.assertEquals(expFrom, m.get('from'));
+    }
 }

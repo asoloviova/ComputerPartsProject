@@ -19,6 +19,29 @@ public with sharing class CalculationController {
         insert purchItemsList;
     }
 
+    @AuraEnabled 
+    public static String sendSms(String phNumber){            
+
+        Twilio_API__c tAPI = Twilio_API__c.getOrgDefaults();
+        String accountSid = tAPI.Account_Sid__c;
+        String token = tAPI.Token__c;
+        String fromPhNumber = '+12055518213';           
+        String smsBody = 'Thank you for the purchase!';        
+        HttpRequest req = new HttpRequest();        
+        req.setEndpoint('callout:Twilio_API/2010-04-01/Accounts/'+accountSid+'/SMS/Messages.json');
+        req.setMethod('POST');        
+        String VERSION  = '3.2.0';        
+        req.setHeader('X-Twilio-Client', 'salesforce-' + VERSION);        
+        req.setHeader('User-Agent', 'twilio-salesforce/' + VERSION);       
+        req.setHeader('Accept', 'application/json');        
+        req.setHeader('Accept-Charset', 'utf-8');        
+        req.setHeader('Authorization','Basic '+EncodingUtil.base64Encode(Blob.valueOf(accountSid+':' +token)));        
+        req.setBody('To='+EncodingUtil.urlEncode(phNumber,'UTF-8')+'&From='+EncodingUtil.urlEncode(fromPhNumber,'UTF-8')+'&Body='+smsBody);        
+        Http http = new Http();        
+        HTTPResponse res = http.send(req);     
+		return res.getBody();
+    } 
+
     public class ItemWrapper{
         @AuraEnabled
         public String itemName{get;set;}
