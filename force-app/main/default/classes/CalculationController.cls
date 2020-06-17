@@ -42,6 +42,53 @@ public with sharing class CalculationController {
 		return res.getBody();
     } 
 
+    @AuraEnabled
+    public static Map<String,String> getContactFields (String contactId) {
+        String strObjectName = 'Contact';
+        String strFieldSetName = 'Purchases_details';
+        Schema.SObjectType SObjectTypeObj = Schema.getGlobalDescribe().get(strObjectName);
+        Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();            
+        Schema.FieldSet fieldSetObj = DescribeSObjectResultObj.FieldSets.getMap().get(strFieldSetName);
+    
+        List<DataTableColumns> lstDataColumns = new List<DataTableColumns>();
+        List<String> queryList = new List<String>();
+        for( Schema.FieldSetMember eachFieldSetMember : fieldSetObj.getFields() ){
+            String dataType = String.valueOf(eachFieldSetMember.getType()).toLowerCase();
+            DataTableColumns datacolumns = new DataTableColumns( 
+            String.valueOf(eachFieldSetMember.getLabel()) ,                                                
+            String.valueOf(eachFieldSetMember.getFieldPath()),                                              
+            String.valueOf(eachFieldSetMember.getType()).toLowerCase() );
+            lstDataColumns.add(datacolumns);
+            queryList.add(String.valueOf(eachFieldSetMember.getFieldPath()));
+        }
+        String selectedFields = String.valueOf(queryList);
+        String soqlQuery = 'SELECT '+ selectedFields.substring(1, selectedFields.length()-1) + ' FROM Contact WHERE Id=:contactId LIMIT 1';
+
+        Contact cont = Database.query(soqlQuery);
+
+        Map<String,String> contFields = new Map<String, String>();
+        for (DataTableColumns col : lstDataColumns){
+            contFIelds.put(String.valueOf(col.label), String.valueOf(cont.get(col.fieldName)));
+        }
+
+        return contFields;
+    } 
+    public class DataTableColumns{
+    @AuraEnabled
+    public String label {get;set;}
+    @AuraEnabled       
+    public String fieldName {get;set;}
+    @AuraEnabled
+    public String type {get;set;}
+
+
+    public DataTableColumns(String label, String fieldName, String type){
+        this.label = label;
+        this.fieldName = fieldName;
+        this.type = type;            
+    }
+    }
+
     public class ItemWrapper{
         @AuraEnabled
         public String itemName{get;set;}

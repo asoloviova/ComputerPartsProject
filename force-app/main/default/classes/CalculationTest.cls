@@ -9,7 +9,7 @@ private with sharing class CalculationTest {
     
     @TestSetup
     static void setup(){
-        Contact cont = new Contact (LastName = 'Black', Total_Amount__c = 0);
+        Contact cont = new Contact (LastName = 'Black', Total_Amount__c = 0, First_Purchase__c = Date.today());
         insert cont;
         List<Item__c> itemList = new List<Item__c>();
         for (Integer i=0;i<5;i++){
@@ -55,5 +55,18 @@ private with sharing class CalculationTest {
         System.assertEquals(expBody,m.get('body'));
         System.assertEquals(ph, m.get('to'));
         System.assertEquals(expFrom, m.get('from'));
+    }
+
+    @isTest static void getContactFieldsTest (){
+        Schema.SObjectType SObjectTypeObj = Schema.getGlobalDescribe().get('Contact');
+        Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();            
+        Schema.FieldSet fieldSetObj = DescribeSObjectResultObj.FieldSets.getMap().get('Purchases_details');
+
+        Contact con = [SELECT Id FROM Contact];
+        Test.startTest();
+        Map<String,String> m = CalculationController.getContactFields(con.Id);
+        Test.stopTest();
+        System.assertEquals(fieldSetObj.getFields().size(), m.size());
+
     }
 }

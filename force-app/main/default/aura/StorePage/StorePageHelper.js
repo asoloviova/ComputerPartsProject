@@ -2,7 +2,10 @@
     contactNameOutput: function (component) {
         let con = JSON.parse(component.find("purchaseSetUp").get("v.contact"));
         if (con != undefined) {
-            component.find("calculation").set("v.contact", con);
+            let calcCmp = component.find("calculation");
+            calcCmp.set("v.contact", con);
+            calcCmp.displayContFields(con.Id);
+
         }
     },
     prepareList: function (component, event, helper) {

@@ -14,7 +14,7 @@
             <lightning:layout>
                 <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                     <lightning:select aura:id="contactPicklistId" name="contactPicklist" label="Contact" required="true"
-                        value="{!v.contact}" onchange="{!c.setContactDiscount}">
+                        value="{!v.contact}" onchange="{!c.setContact}">
                         <option value="">Choose Contact</option>
                         <aura:iteration items="{!v.contactPick}" var="con">
                             <option value="{!con.value}" text="{!con.name}" />

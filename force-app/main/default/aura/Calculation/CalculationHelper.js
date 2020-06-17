@@ -34,5 +34,15 @@
             toastEvent.fire();
         });
         $A.enqueueAction(action);
+    },
+    sendMessage: function (component) {
+        let action = component.get("c.sendSms");
+        let contact = component.get("v.contact");
+
+        action.setParams({
+            "phNumber": contact.Phone
+        });
+        $A.enqueueAction(action);
+
     }
 })
