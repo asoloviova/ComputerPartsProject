@@ -4,8 +4,8 @@
     <aura:attribute name="displayCalculation" type="Boolean" default="false" />
 
     <div>
-        <div class="slds-m-vertical_small">
-            <c:StoreHeader />
+        <div class="slds-align_absolute-center slds-card slds-p-vertical_medium">
+            <div class="slds-text-heading_large">Computer Parts Store</div>
         </div>
 
         <div class="slds-card slds-m-vertical_small">
