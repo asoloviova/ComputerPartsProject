@@ -1,7 +1,7 @@
 ({
     contactNameOutput: function (component) {
         let con = JSON.parse(component.find("purchaseSetUp").get("v.contact"));
-        if (con != undefined) {
+        if (typeof con != undefined) {
             let calcCmp = component.find("calculation");
             calcCmp.set("v.contact", con);
             calcCmp.displayContFields(con.Id);

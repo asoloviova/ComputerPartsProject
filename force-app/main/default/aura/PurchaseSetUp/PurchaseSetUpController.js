@@ -13,7 +13,7 @@
     displayManualDiscountField: function (component, event, helper) {
         let type = component.find("discountTypePicklist").get("v.value");
         let evt = $A.get("e.c:displayManDiscountField");
-        evt.setParams({ "discTypeEvt": type == "manual" });
+        evt.setParams({ "discTypeEvt": type == "Manual" });
         evt.fire();
 
     },

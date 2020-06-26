@@ -4,14 +4,23 @@ public with sharing class CalculationController {
     public static void saveOrderMethod(String contId, List<ItemWrapper> chosenItems, Decimal totalSumWithDiscount, 
             String purchDate, String discountType ){
         Date purchaseDate = Date.valueOf(purchDate);
-        String discType = discountType.substring(0, 1).toUpperCase() + discountType.substring(1);
         Purchase__c purch = new Purchase__c(Contact__c = contId, Amount__c = totalSumWithDiscount, 
-        Purchase_Date__c = purchaseDate, Discount_Type__c = discType);
+            Purchase_Date__c = purchaseDate, Discount_Type__c = discountType);
         insert purch;
         List <Purchase_Item__c> purchItemsList = new List<Purchase_Item__c>();
+        List <String> chosenItemsNames = new List<String>();
+        for (ItemWrapper chosenItem : chosenItems){
+            chosenItemsNames.add(chosenItem.itemName);
+        }
+        List <Item__c> chosenItemsList = new List<Item__c>([SELECT Id FROM Item__c WHERE Name IN :chosenItemsNames]);
+
+        Map <String,Item__c> itms = new Map<String, Item__c>();
+        for (Integer i=0; i<chosenItems.size();i++){
+            itms.put(chosenItemsNames.get(i),chosenItemsList.get(i) );
+        }
         for(ItemWrapper chosenItem : chosenItems){
             if (String.isNotBlank(chosenItem.itemName)){
-                Item__c item = [SELECT Id, Name FROM Item__c WHERE Name=:chosenItem.itemName];
+                Item__c item = itms.get(chosenItem.itemName);
                 purchItemsList.add(new Purchase_Item__c (Discount__c = chosenItem.itemDiscount,
                         Item__c = item.Id, Purchase__c = purch.Id, Quantity__c = chosenItem.itemQuantity));
             }
@@ -22,20 +31,12 @@ public with sharing class CalculationController {
     @AuraEnabled 
     public static String sendSms(String phNumber){            
 
-        Twilio_API__c tAPI = Twilio_API__c.getOrgDefaults();
-        String accountSid = tAPI.Account_Sid__c;
-        String token = tAPI.Token__c;
         String fromPhNumber = '+12055518213';           
         String smsBody = 'Thank you for the purchase!';        
         HttpRequest req = new HttpRequest();        
-        req.setEndpoint('callout:Twilio_API/2010-04-01/Accounts/'+accountSid+'/SMS/Messages.json');
+        req.setEndpoint('callout:Twilio_API');
         req.setMethod('POST');        
-        String VERSION  = '3.2.0';        
-        req.setHeader('X-Twilio-Client', 'salesforce-' + VERSION);        
-        req.setHeader('User-Agent', 'twilio-salesforce/' + VERSION);       
-        req.setHeader('Accept', 'application/json');        
-        req.setHeader('Accept-Charset', 'utf-8');        
-        req.setHeader('Authorization','Basic '+EncodingUtil.base64Encode(Blob.valueOf(accountSid+':' +token)));        
+        req.setHeader('Authorization','Basic '+ '{!$Credential.AuthorizationHeaderValue}');         
         req.setBody('To='+EncodingUtil.urlEncode(phNumber,'UTF-8')+'&From='+EncodingUtil.urlEncode(fromPhNumber,'UTF-8')+'&Body='+smsBody);        
         Http http = new Http();        
         HTTPResponse res = http.send(req);     
@@ -55,9 +56,9 @@ public with sharing class CalculationController {
         for( Schema.FieldSetMember eachFieldSetMember : fieldSetObj.getFields() ){
             String dataType = String.valueOf(eachFieldSetMember.getType()).toLowerCase();
             DataTableColumns datacolumns = new DataTableColumns( 
-            String.valueOf(eachFieldSetMember.getLabel()) ,                                                
-            String.valueOf(eachFieldSetMember.getFieldPath()),                                              
-            String.valueOf(eachFieldSetMember.getType()).toLowerCase() );
+                String.valueOf(eachFieldSetMember.getLabel()) ,                                                
+                String.valueOf(eachFieldSetMember.getFieldPath()),                                              
+                String.valueOf(eachFieldSetMember.getType()).toLowerCase() );
             lstDataColumns.add(datacolumns);
             queryList.add(String.valueOf(eachFieldSetMember.getFieldPath()));
         }

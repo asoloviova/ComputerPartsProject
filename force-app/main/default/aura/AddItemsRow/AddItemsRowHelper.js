@@ -15,7 +15,7 @@
         let contactDiscount = component.get("v.contactDiscount");
         let hasManualDiscField = component.get("v.hasManualDiscountFiled");
         let inputtedDiscount = component.get("v.manDiscount");
-        if (hasManualDiscField == true) {
+        if (hasManualDiscField) {
             component.set("v.chosenItem.itemDiscount", inputtedDiscount);
         } else
             component.set("v.chosenItem.itemDiscount", contactDiscount);

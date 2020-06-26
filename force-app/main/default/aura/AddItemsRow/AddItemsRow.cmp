@@ -23,7 +23,7 @@
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
                 <lightning:select aura:id="itemPicklist" name="itemPicklist" label="{!v.itemType}" required="true"
                     onchange="{!c.itemPicklistChange}" value="{!v.itemListValue}">
-                    <option value="">Choose {!v.itemType}</option>
+                    <option value="" text="{!'Choose '+v.itemType}" />
                     <aura:iteration items="{!v.itemList}" var="itm">
                         <option value="{!itm.value}" text="{!itm.label}" selected="{!v.itemListValue==itm.value}" />
                     </aura:iteration>
@@ -33,11 +33,11 @@
             <lightning:layoutItem padding="around-small" class="slds-size_1-of-5">
                 <lightning:select aura:id="quantityPicklist" name="quantityPicklist" label="Quantity" required="true"
                     onchange="{!c.quantityChange}" value="{!v.chosenQuantity}">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" text="1" />
+                    <option value="2" text="2" />
+                    <option value="3" text="3" />
+                    <option value="4" text="4" />
+                    <option value="5" text="5" />
                 </lightning:select>
             </lightning:layoutItem>
 

@@ -15,7 +15,7 @@
                 <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                     <lightning:select aura:id="contactPicklistId" name="contactPicklist" label="Contact" required="true"
                         value="{!v.contact}" onchange="{!c.setContact}">
-                        <option value="">Choose Contact</option>
+                        <option value="" text="Choose Contact" />
                         <aura:iteration items="{!v.contactPick}" var="con">
                             <option value="{!con.value}" text="{!con.name}" />
                         </aura:iteration>
@@ -28,8 +28,8 @@
                 <lightning:layoutItem padding="around-small" class="slds-size_1-of-3">
                     <lightning:select aura:id="discountTypePicklist" name="discountTypePicklist"
                         label="Type of Discount" required="true" onchange="{!c.displayManualDiscountField}">
-                        <option value="automatic">Automatic</option>
-                        <option value="manual">Manual</option>
+                        <option value="Automatic" text="Automatic" />
+                        <option value="Manual" text="Manual" />
                     </lightning:select>
                 </lightning:layoutItem>
             </lightning:layout>

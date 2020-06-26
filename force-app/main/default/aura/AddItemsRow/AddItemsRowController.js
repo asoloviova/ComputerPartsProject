@@ -14,7 +14,7 @@
         let contactDiscount = event.getParam("contactDiscount");
         component.set("v.contactDiscount", contactDiscount);
         let discountField = component.get("v.hasManualDiscountFiled");
-        if (discountField == false) {
+        if (!discountField) {
             component.set("v.chosenItem.itemDiscount", contactDiscount);
         }
     },
@@ -22,10 +22,10 @@
         let displayField = event.getParam("discTypeEvt");
         component.set("v.hasManualDiscountFiled", displayField);
         let manDiscount = component.get("v.manDiscount");
-        if (displayField == true) {
+        if (displayField) {
             component.set("v.chosenItem.itemDiscount", manDiscount);
         }
-        else if (displayField == false) {
+        else if (!displayField) {
             component.set("v.chosenItem.itemDiscount", component.get("v.contactDiscount"));
         }
     },
@@ -60,7 +60,7 @@
         }
         let hasManualDiscField = component.get("v.hasManualDiscountFiled");
         let inputtedDiscount = component.get("v.manDiscount");
-        if (hasManualDiscField == true) {
+        if (hasManualDiscField) {
             component.set("v.chosenItem.itemDiscount", inputtedDiscount);
         }
     }
