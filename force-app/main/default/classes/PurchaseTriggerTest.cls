@@ -22,27 +22,25 @@ public with sharing class PurchaseTriggerTest {
     }
 
     @isTest private static void sharePurchTest(){
-        User u1 = [SELECT Id FROM User WHERE Email='test1@sashaorg.com'];
         User u2 = [SELECT Id FROM User WHERE Email='test2@sashaorg.com'];
-        Contact con = [SELECT Id FROM Contact];
+        Contact con = [SELECT Id, OwnerId FROM Contact];
 
         Test.startTest();
             Purchase__c purch = new Purchase__c(Purchase_Date__c = Date.today(), Contact__c = con.Id);
             insert purch;
         Test.stopTest();
 
-        Purchase__c p = [SELECT Id FROM Purchase__c];
         List<Purchase__Share> pShrs1 = [SELECT Id, UserOrGroupId, AccessLevel,
-        RowCause FROM Purchase__Share WHERE ParentId = :p.Id AND UserOrGroupId= :u1.Id];
+            RowCause FROM Purchase__Share WHERE ParentId = :purch.Id AND UserOrGroupId = :con.OwnerId];
 
         List<Purchase__Share> pShrs2 = [SELECT Id, UserOrGroupId, AccessLevel,
-        RowCause FROM Purchase__Share WHERE ParentId = :p.Id AND UserOrGroupId= :u2.Id];
+            RowCause FROM Purchase__Share WHERE ParentId = :purch.Id AND UserOrGroupId = :u2.Id];
 
 
         System.assertEquals(pShrs2.size(), 0);
         System.assertEquals(pShrs1.size(), 1);
         System.assertEquals(pShrs1[0].AccessLevel, 'Edit');
-        System.assertEquals(pShrs1[0].UserOrGroupId, u1.Id);
+        System.assertEquals(pShrs1[0].UserOrGroupId, con.OwnerId);
 
     }
 

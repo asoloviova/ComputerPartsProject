@@ -1,7 +1,6 @@
 ({
     saveOrder: function (component, event, helper) {
         helper.saveOrderDetails(component);
-        helper.sendMessage(component);
     },
     displayContFields: function (component, event) {
         var params = event.getParam("arguments");

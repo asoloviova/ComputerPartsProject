@@ -6,6 +6,6 @@ trigger PurchaseTrigger on Purchase__c (after insert, after update) {
             PurchaseTriggerHandler.sharePurchWithContactOwner(Trigger.new);
         } 
         if (Trigger.isUpdate) { }
-        if (Trigger.isDelete) { }
+
       }
 }

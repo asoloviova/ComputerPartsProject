@@ -2,7 +2,7 @@ public with sharing class CalculationController {
 
     @AuraEnabled
     public static void saveOrderMethod(String contId, List<ItemWrapper> chosenItems, Decimal totalSumWithDiscount, 
-            String purchDate, String discountType ){
+            String purchDate, String discountType, String phNumber ){
         Date purchaseDate = Date.valueOf(purchDate);
         Purchase__c purch = new Purchase__c(Contact__c = contId, Amount__c = totalSumWithDiscount, 
             Purchase_Date__c = purchaseDate, Discount_Type__c = discountType);
@@ -25,11 +25,15 @@ public with sharing class CalculationController {
                         Item__c = item.Id, Purchase__c = purch.Id, Quantity__c = chosenItem.itemQuantity));
             }
         }
+        if(purchItemsList.size()>0){
+            sendSms(phNumber);
+        }
+
         insert purchItemsList;
     }
 
-    @AuraEnabled 
-    public static String sendSms(String phNumber){            
+    @future (callout=true)
+    public static void sendSms(String phNumber){            
 
         String fromPhNumber = '+12055518213';           
         String smsBody = 'Thank you for the purchase!';        
@@ -40,7 +44,7 @@ public with sharing class CalculationController {
         req.setBody('To='+EncodingUtil.urlEncode(phNumber,'UTF-8')+'&From='+EncodingUtil.urlEncode(fromPhNumber,'UTF-8')+'&Body='+smsBody);        
         Http http = new Http();        
         HTTPResponse res = http.send(req);     
-		return res.getBody();
+
     } 
 
     @AuraEnabled
@@ -62,32 +66,36 @@ public with sharing class CalculationController {
             lstDataColumns.add(datacolumns);
             queryList.add(String.valueOf(eachFieldSetMember.getFieldPath()));
         }
-        String selectedFields = String.valueOf(queryList);
-        String soqlQuery = 'SELECT '+ selectedFields.substring(1, selectedFields.length()-1) + ' FROM Contact WHERE Id=:contactId LIMIT 1';
-
-        Contact cont = Database.query(soqlQuery);
-
+        Contact cont = getContact(queryList, contactId);
         Map<String,String> contFields = new Map<String, String>();
         for (DataTableColumns col : lstDataColumns){
             contFIelds.put(String.valueOf(col.label), String.valueOf(cont.get(col.fieldName)));
         }
-
         return contFields;
     } 
-    public class DataTableColumns{
-    @AuraEnabled
-    public String label {get;set;}
-    @AuraEnabled       
-    public String fieldName {get;set;}
-    @AuraEnabled
-    public String type {get;set;}
 
+    private static Contact getContact(List<String> queryList, String contactId){
+        String selectedFields = String.valueOf(queryList);
+        String soqlQuery = 'SELECT '+ selectedFields.substring(1, selectedFields.length()-1) + ' FROM Contact WHERE Id=:contactId LIMIT 1';
+        Contact cont = Database.query(soqlQuery);
+        return cont;
 
-    public DataTableColumns(String label, String fieldName, String type){
-        this.label = label;
-        this.fieldName = fieldName;
-        this.type = type;            
     }
+    public class DataTableColumns{
+        @AuraEnabled
+        public String label {get;set;}
+
+        @AuraEnabled       
+        public String fieldName {get;set;}
+
+        @AuraEnabled
+        public String type {get;set;}
+
+        public DataTableColumns(String label, String fieldName, String type){
+            this.label = label;
+            this.fieldName = fieldName;
+            this.type = type;            
+        }
     }
 
     public class ItemWrapper{

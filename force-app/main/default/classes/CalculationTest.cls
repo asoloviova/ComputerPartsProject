@@ -27,36 +27,25 @@ private with sharing class CalculationTest {
     }
 
     @IsTest private static void saveOrderTest(){
+
         Contact cont = [SELECT Id FROM Contact];
         CalculationController.ItemWrapper itmWrapp = createWrapper();
         List<CalculationController.ItemWrapper> itmList = new List<CalculationController.ItemWrapper>();
         itmList.add(itmWrapp);
+        SendSmsCalloutMock mock = new SendSmsCalloutMock();
+        Test.setMock(HttpCalloutMock.class, mock); 
         Test.startTest();
-            try {
-                CalculationController.saveOrderMethod(cont.Id, itmList, totalSumWithDiscount, dateStr, discType);
-            } catch (Exception e) {
-                System.debug('exception: '+e);
-            }
+            CalculationController.saveOrderMethod(cont.Id, itmList, totalSumWithDiscount, dateStr, discType, ph);
         Test.stopTest();
         Integer purch = [SELECT COUNT() FROM Purchase__c];
         Integer purchItems = [SELECT COUNT() FROM Purchase_Item__c ];
 
         System.assertEquals(1, purch);
         System.assertEquals(1, purchItems);
+        System.assertEquals(1, mock.calls);
 
     }
-    @isTest static void smsSendingTest() {
-
-        Test.setMock(HttpCalloutMock.class, new SendSmsCalloutMock()); 
-        Test.startTest();
-            String jsonInput = CalculationController.sendSms(ph);
-        Test.stopTest();
-        Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(jsonInput);
-        System.assertEquals(expBody,m.get('body'));
-        System.assertEquals(ph, m.get('to'));
-        System.assertEquals(expFrom, m.get('from'));
-    }
-
+ 
     @isTest static void getContactFieldsTest (){
         Schema.SObjectType SObjectTypeObj = Schema.getGlobalDescribe().get('Contact');
         Schema.DescribeSObjectResult DescribeSObjectResultObj = SObjectTypeObj.getDescribe();            
@@ -64,7 +53,7 @@ private with sharing class CalculationTest {
 
         Contact con = [SELECT Id FROM Contact];
         Test.startTest();
-        Map<String,String> m = CalculationController.getContactFields(con.Id);
+            Map<String,String> m = CalculationController.getContactFields(con.Id);
         Test.stopTest();
         System.assertEquals(fieldSetObj.getFields().size(), m.size());
 

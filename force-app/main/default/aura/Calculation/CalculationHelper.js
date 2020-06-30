@@ -12,7 +12,8 @@
             "chosenItems": list,
             "totalSumWithDiscount": totalSum,
             "purchDate": date,
-            "discountType": discountType
+            "discountType": discountType,
+            "phNumber": contact.Phone
         });
         action.setCallback(this, function (response) {
             let state = response.getState();
@@ -35,14 +36,14 @@
         });
         $A.enqueueAction(action);
     },
-    sendMessage: function (component) {
-        let action = component.get("c.sendSms");
-        let contact = component.get("v.contact");
+    // sendMessage: function (component) {
+    //     let action = component.get("c.sendSms");
+    //     let contact = component.get("v.contact");
 
-        action.setParams({
-            "phNumber": contact.Phone
-        });
-        $A.enqueueAction(action);
+    //     action.setParams({
+    //         "phNumber": contact.Phone
+    //     });
+    //     $A.enqueueAction(action);
 
-    }
+    // }
 })
